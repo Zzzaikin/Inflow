@@ -1,3 +1,6 @@
+using VizORM_Backend.Config;
+using VizORM_Backend.Controllers;
+
 namespace VizORM_Backend
 {
     public class Program
@@ -12,6 +15,9 @@ namespace VizORM_Backend
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            // DI config.
+            builder.Services.Configure<Configuration>(builder.Configuration);
 
             var app = builder.Build();
 
