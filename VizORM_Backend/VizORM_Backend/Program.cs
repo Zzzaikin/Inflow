@@ -1,5 +1,7 @@
+using Microsoft.AspNetCore.Localization;
+using System.Globalization;
 using VizORM_Backend.Config;
-using VizORM_Backend.Controllers;
+using VizORM_Backend.Middlewares;
 
 namespace VizORM_Backend
 {
@@ -16,8 +18,8 @@ namespace VizORM_Backend
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-            // DI config.
             builder.Services.Configure<Configuration>(builder.Configuration);
+            builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
 
             var app = builder.Build();
 
@@ -27,6 +29,24 @@ namespace VizORM_Backend
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+
+            var supportedCultures = new[]
+            {
+                new CultureInfo("ru"),
+                new CultureInfo("en")
+            };
+
+            var cultureName = builder.Configuration["Culture"];
+            app.UseRequestLocalization(new RequestLocalizationOptions 
+            {
+                DefaultRequestCulture = new RequestCulture(cultureName),
+                SupportedCultures = supportedCultures,
+                SupportedUICultures = supportedCultures
+            });
+
+            app.UseStaticFiles();
+
+            app.UseMiddleware<DataExceptionHandler>();
 
             app.UseHttpsRedirection();
 

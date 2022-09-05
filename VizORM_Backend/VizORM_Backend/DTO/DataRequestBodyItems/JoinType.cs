@@ -1,4 +1,4 @@
-﻿namespace VizORM_Backend.Bodies
+﻿namespace VizORM_Backend.DTO.DataRequestBodyItems
 {
     public enum JoinType
     {

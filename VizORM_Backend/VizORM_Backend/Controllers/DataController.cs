@@ -3,10 +3,9 @@ using Microsoft.Extensions.Options;
 using VizORM_Backend.Config;
 using System.Data.SqlClient;
 using SqlKata.Compilers;
-using SqlKata.Execution;
 using VizORM_Common;
 using VizORM_Backend.Controllers.Interfaces;
-using VizORM_Backend.Bodies;
+using VizORM_Backend.DTO;
 
 namespace VizORM_Backend.Controllers
 {
@@ -18,7 +17,7 @@ namespace VizORM_Backend.Controllers
 
         private readonly Configuration _configuration;
 
-        private QueryFactory _queryFactory;
+        private Query _query;
 
         public DataController(ILogger<DataController> logger, IOptions<Configuration> configuration)
         {
@@ -28,25 +27,21 @@ namespace VizORM_Backend.Controllers
             SetupDbConnection();
         }
 
-        [HttpPost]
         public Task<IActionResult> Delete(DataRequestBody dataRequestBody)
         {
             throw new NotImplementedException();
         }
 
-        [HttpPost]
         public Task<IActionResult> Insert(DataRequestBody dataRequestBody)
         {
             throw new NotImplementedException();
         }
 
-        [HttpPost]
         public Task<IActionResult> Select(DataRequestBody dataRequestBody)
         {
             throw new NotImplementedException();
         }
 
-        [HttpPost]
         public Task<IActionResult> Update(DataRequestBody dataRequestBody)
         {
             throw new NotImplementedException();
@@ -72,7 +67,7 @@ namespace VizORM_Backend.Controllers
         {
             var sqlCompiler = GetDbCompiler(_configuration.SqlCompilerName);
             var connection = new SqlConnection(_configuration?.ConnectionStrings?.DbConnectionString);
-            _queryFactory = new QueryFactory(connection, sqlCompiler);
+            _query = new Query(connection, sqlCompiler);
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using VizORM_Backend.Bodies;
+using VizORM_Backend.DTO;
 
 namespace VizORM_Backend.Controllers.Interfaces
 {

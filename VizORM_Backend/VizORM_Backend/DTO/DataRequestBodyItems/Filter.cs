@@ -1,6 +1,6 @@
 ﻿using VizORM_Common;
 
-namespace VizORM_Backend.Bodies
+namespace VizORM_Backend.DTO.DataRequestBodyItems
 {
     public class Filter
     {
@@ -37,3 +37,4 @@ namespace VizORM_Backend.Bodies
             }
         }
     }
+}

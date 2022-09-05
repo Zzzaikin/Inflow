@@ -1,12 +1,13 @@
-﻿using VizORM_Common;
+﻿using VizORM_Backend.DTO.DataRequestBodyItems;
+using VizORM_Common;
 
-namespace VizORM_Backend.Bodies
+namespace VizORM_Backend.DTO
 {
     public class DataRequestBody
     {
-        private string _entityName;
+        private string? _entityName;
 
-        public List<string>? Columns { get; set; }
+        public List<string>? ColumnNames { get; set; }
 
         public List<Filter>? Filters { get; set; }
 
@@ -25,5 +26,13 @@ namespace VizORM_Backend.Bodies
                 _entityName = value;
             }
         }
+
+        public int? From { get; set; }
+
+        public int? Count { get; set; }
+
+        public OrderMode OrderMode { get; set; } = OrderMode.Asc;
+
+        public string? OrderByColumnName { get; set; }
     }
 }

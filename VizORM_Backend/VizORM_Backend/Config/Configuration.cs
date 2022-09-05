@@ -7,5 +7,7 @@
         public int MaxSelectedRecords { get; set; }
 
         public string SqlCompilerName { get; set; }
+
+        public string Culture { get; set; }
     }
 }
