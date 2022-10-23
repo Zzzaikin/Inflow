@@ -46,12 +46,11 @@ namespace VizORM_Backend
 
             app.UseStaticFiles();
 
-            app.UseMiddleware<DataExceptionHandler>();
+            app.UseMiddleware<ExceptionHandler>();
 
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
-
 
             app.MapControllers();
 

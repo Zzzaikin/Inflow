@@ -1,4 +1,10 @@
 ﻿namespace VizORM_Common
 {
-    public class TooMuchSelectedRecordException : Exception { }
+    public class TooMuchSelectedRecordException : Exception 
+    {
+        public TooMuchSelectedRecordException(string? message) : base(message) { }
+
+        public TooMuchSelectedRecordException(string? message, Exception? innerException) 
+            : base(message, innerException) { }
+    }
 }

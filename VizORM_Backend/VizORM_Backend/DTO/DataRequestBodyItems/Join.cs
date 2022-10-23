@@ -4,7 +4,7 @@ namespace VizORM_Backend.DTO.DataRequestBodyItems
 {
     public class Join
     {
-        private string _joiningEntityName;
+        private string _joinedEntityName;
 
         private string _leftColumnName;
 
@@ -38,22 +38,20 @@ namespace VizORM_Backend.DTO.DataRequestBodyItems
             }
         }
 
-        public string JoiningEntityName
+        public string JoinedEntityName
         {
             get
             {
-                return _joiningEntityName;
+                return _joinedEntityName;
             }
 
             set
             {
-                Argument.NotNullOrEmpty(value, nameof(JoiningEntityName));
-                _joiningEntityName = value;
+                Argument.NotNullOrEmpty(value, nameof(JoinedEntityName));
+                _joinedEntityName = value;
             }
         }
 
-        public JoinType JoinType { get; set; }
-
-
+        public JoinType JoinType { get; set; } = JoinType.Left;
     }
 }

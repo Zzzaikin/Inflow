@@ -2,8 +2,6 @@
 using Microsoft.Extensions.Options;
 using VizORM_Backend.Config;
 using System.Data.SqlClient;
-using SqlKata.Compilers;
-using VizORM_Common;
 using VizORM_Backend.Controllers.Interfaces;
 using VizORM_Backend.DTO;
 
@@ -27,45 +25,40 @@ namespace VizORM_Backend.Controllers
             SetupDbConnection();
         }
 
-        public Task<IActionResult> Delete(DataRequestBody dataRequestBody)
+        public async Task<IActionResult> Delete(DataRequestBody dataRequestBody)
         {
-            throw new NotImplementedException();
+            var deletedRecordsCount = await _query.DeleteAsync(dataRequestBody);
+            var response = new { deletedRecordsCount };
+
+            return Ok(response);
         }
 
-        public Task<IActionResult> Insert(DataRequestBody dataRequestBody)
+        public async Task<IActionResult> Insert(DataRequestBody dataRequestBody)
         {
-            throw new NotImplementedException();
+            var insertedRecordsCount = await _query.InsertAsync(dataRequestBody);
+            var response = new { insertedRecordsCount };
+
+            return Ok(response);
         }
 
-        public Task<IActionResult> Select(DataRequestBody dataRequestBody)
+        [HttpPost("Select")]
+        public async Task<IActionResult> Select([FromBody] DataRequestBody dataRequestBody)
         {
-            throw new NotImplementedException();
+            var selectedRecords = await _query.SelectAsync(dataRequestBody);
+            return Ok(selectedRecords);
         }
 
-        public Task<IActionResult> Update(DataRequestBody dataRequestBody)
+        public async Task<IActionResult> Update(DataRequestBody dataRequestBody)
         {
-            throw new NotImplementedException();
-        }
+            var updatedRecordsCount = await _query.UpdateAsync(dataRequestBody);
+            var response = new { updatedRecordsCount };
 
-        private Compiler GetDbCompiler(string sqlCompilerName)
-        {
-            Argument.NotNullOrEmpty(sqlCompilerName, nameof(sqlCompilerName));
-
-            return sqlCompilerName switch
-            {
-                nameof(SqlServerCompiler) => new SqlServerCompiler(),
-                nameof(MySqlCompiler) => new MySqlCompiler(),
-                nameof(FirebirdCompiler) => new FirebirdCompiler(),
-                nameof(OracleCompiler) => new OracleCompiler(),
-                nameof(PostgresCompiler) => new PostgresCompiler(),
-                nameof(SqliteCompiler) => new SqliteCompiler(),
-                _ => throw new NotImplementedException($"Sql compiler: {sqlCompilerName} not supported.")
-            };
+            return Ok(response);
         }
 
         private void SetupDbConnection()
         {
-            var sqlCompiler = GetDbCompiler(_configuration.SqlCompilerName);
+            var sqlCompiler = _configuration.GetDbCompiler(_configuration.SqlCompilerName);
             var connection = new SqlConnection(_configuration?.ConnectionStrings?.DbConnectionString);
             _query = new Query(connection, sqlCompiler);
         }

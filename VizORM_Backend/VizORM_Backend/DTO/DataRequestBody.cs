@@ -1,4 +1,5 @@
-﻿using VizORM_Backend.DTO.DataRequestBodyItems;
+﻿using DataService.DTO.DataRequestBodyItems;
+using VizORM_Backend.DTO.DataRequestBodyItems;
 using VizORM_Common;
 
 namespace VizORM_Backend.DTO
@@ -27,12 +28,10 @@ namespace VizORM_Backend.DTO
             }
         }
 
-        public int? From { get; set; }
+        public int From { get; set; }
 
-        public int? Count { get; set; }
+        public int Count { get; set; }
 
-        public OrderMode OrderMode { get; set; } = OrderMode.Asc;
-
-        public string? OrderByColumnName { get; set; }
+        public Order? Order { get; set; }
     }
 }

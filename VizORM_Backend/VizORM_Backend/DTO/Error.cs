@@ -1,6 +1,4 @@
-﻿using System.Text.Json;
-
-namespace VizORM_Backend.DTO
+﻿namespace VizORM_Backend.DTO
 {
     public class Error
     {

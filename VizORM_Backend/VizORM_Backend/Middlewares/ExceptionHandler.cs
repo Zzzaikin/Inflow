@@ -1,23 +1,22 @@
 ﻿using Microsoft.Extensions.Localization;
 using System.Data.SqlClient;
 using System.Net;
-using System.Text.Json;
 using VizORM_Backend.DTO;
 
 namespace VizORM_Backend.Middlewares
 {
-    public class DataExceptionHandler
+    public class ExceptionHandler
     {
         private readonly RequestDelegate _next;
 
-        private readonly ILogger<DataExceptionHandler> _logger;
+        private readonly ILogger<ExceptionHandler> _logger;
 
-        private readonly IStringLocalizer<DataExceptionHandler> _stringLocalizer;
+        private readonly IStringLocalizer<ExceptionHandler> _stringLocalizer;
 
-        public DataExceptionHandler(
+        public ExceptionHandler(
             RequestDelegate next,
-            ILogger<DataExceptionHandler> logger,
-            IStringLocalizer<DataExceptionHandler> stringLocalizer)
+            ILogger<ExceptionHandler> logger,
+            IStringLocalizer<ExceptionHandler> stringLocalizer)
         {
             _next = next;
             _logger = logger;
@@ -31,26 +30,36 @@ namespace VizORM_Backend.Middlewares
                 await _next(httpContext);
             }
 
-            catch(SqlException sqlException)
+            catch (SqlException sqlException)
             {
                 var message = _stringLocalizer["SqlErrorMessage"];
-                await HandleExceptionAsync(httpContext, sqlException, HttpStatusCode.InternalServerError, message.Value);
+                await HandleExceptionAsync(httpContext, sqlException,
+                    HttpStatusCode.InternalServerError, message.Value);
             }
 
-            catch(ArgumentException argumentException)
+            catch (ArgumentException argumentException)
             {
                 var message = _stringLocalizer["ArgumentErrorMessage"];
-                await HandleExceptionAsync(httpContext, argumentException, HttpStatusCode.BadRequest, message.Value);
+                await HandleExceptionAsync(httpContext, argumentException,
+                    HttpStatusCode.BadRequest, message.Value);
             }
 
-            catch(Exception exception)
+            catch (NotImplementedException notImplementedException)
+            {
+                await HandleExceptionAsync(httpContext, notImplementedException,
+                    HttpStatusCode.InternalServerError, notImplementedException.Message);
+            }
+
+            catch (Exception exception)
             {
                 var message = _stringLocalizer["AnotherError"];
-                await HandleExceptionAsync(httpContext, exception, HttpStatusCode.InternalServerError, message.Value);
+                await HandleExceptionAsync(httpContext, exception,
+                    HttpStatusCode.InternalServerError, message.Value);
             }
         }
 
-        private async Task HandleExceptionAsync(HttpContext httpContext, Exception exception, HttpStatusCode httpStatusCode, string message)
+        private async Task HandleExceptionAsync(HttpContext httpContext, Exception exception, 
+            HttpStatusCode httpStatusCode, string message)
         {
             var errorMessage = exception.ToString();
             _logger.LogError(errorMessage);
