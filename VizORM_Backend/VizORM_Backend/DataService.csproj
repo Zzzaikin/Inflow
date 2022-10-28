@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\VizORM_Common\VizORM_Common.csproj" />
+    <ProjectReference Include="..\VizORM_Common\Common.csproj" />
   </ItemGroup>
 
 </Project>

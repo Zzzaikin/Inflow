@@ -1,4 +1,4 @@
-﻿namespace VizORM_Backend.Config
+﻿namespace VizORM.DataService.Config
 {
     public class ConnectionStrings
     {

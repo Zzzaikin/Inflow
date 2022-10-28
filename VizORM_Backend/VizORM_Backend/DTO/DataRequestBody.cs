@@ -1,18 +1,17 @@
-﻿using DataService.DTO.DataRequestBodyItems;
-using VizORM_Backend.DTO.DataRequestBodyItems;
-using VizORM_Common;
+﻿using VizORM.DataService.DTO.DataRequestBodyItems;
+using VizORM.Common;
 
-namespace VizORM_Backend.DTO
+namespace VizORM.DataService.DTO
 {
     public class DataRequestBody
     {
         private string? _entityName;
 
-        public List<string>? ColumnNames { get; set; }
+        public IEnumerable<string>? ColumnNames { get; set; }
 
-        public List<Filter>? Filters { get; set; }
+        public IEnumerable<Filter>? Filters { get; set; }
 
-        public List<Join>? Joins { get; set; }
+        public IEnumerable<Join>? Joins { get; set; }
 
         public string EntityName
         {

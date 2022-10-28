@@ -1,11 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
-using VizORM_Backend.Config;
+using SqlKata.Execution;
 using System.Data.SqlClient;
-using VizORM_Backend.Controllers.Interfaces;
-using VizORM_Backend.DTO;
+using VizORM.DataService.Config;
+using VizORM.DataService.Controllers.Interfaces;
+using VizORM.DataService.DTO;
+using VizORM.DataService.Extensions;
 
-namespace VizORM_Backend.Controllers
+namespace VizORM.DataService.Controllers
 {
     [ApiController]
     [Route("[controller]")]
@@ -15,10 +18,14 @@ namespace VizORM_Backend.Controllers
 
         private readonly Configuration _configuration;
 
-        private Query _query;
+        private readonly IStringLocalizer<DataController> _stringLocalizer;
 
-        public DataController(ILogger<DataController> logger, IOptions<Configuration> configuration)
+        private QueryFactory _queryFactory;
+
+        public DataController(ILogger<DataController> logger, IOptions<Configuration> configuration, 
+            IStringLocalizer<DataController> stringLocalizer)
         {
+            _stringLocalizer = stringLocalizer;
             _logger = logger;
             _configuration = configuration.Value;
 
@@ -27,40 +34,38 @@ namespace VizORM_Backend.Controllers
 
         public async Task<IActionResult> Delete(DataRequestBody dataRequestBody)
         {
-            var deletedRecordsCount = await _query.DeleteAsync(dataRequestBody);
-            var response = new { deletedRecordsCount };
-
-            return Ok(response);
+            throw new NotImplementedException();
         }
 
         public async Task<IActionResult> Insert(DataRequestBody dataRequestBody)
         {
-            var insertedRecordsCount = await _query.InsertAsync(dataRequestBody);
-            var response = new { insertedRecordsCount };
-
-            return Ok(response);
+            throw new NotImplementedException();
         }
 
         [HttpPost("Select")]
         public async Task<IActionResult> Select([FromBody] DataRequestBody dataRequestBody)
         {
-            var selectedRecords = await _query.SelectAsync(dataRequestBody);
-            return Ok(selectedRecords);
+            var result = await _queryFactory.Query()
+                .Select(dataRequestBody.ColumnNames.ToArray())
+                .From(dataRequestBody.EntityName)
+                .Join(vizORMJoins: dataRequestBody.Joins, _stringLocalizer)
+                .Where(dataRequestBody.Filters, _stringLocalizer)
+                .OrderBy(dataRequestBody.Order, _stringLocalizer)
+                .GetAsync();
+
+            return Ok(result);
         }
 
         public async Task<IActionResult> Update(DataRequestBody dataRequestBody)
         {
-            var updatedRecordsCount = await _query.UpdateAsync(dataRequestBody);
-            var response = new { updatedRecordsCount };
-
-            return Ok(response);
+            throw new NotImplementedException();
         }
 
         private void SetupDbConnection()
         {
             var sqlCompiler = _configuration.GetDbCompiler(_configuration.SqlCompilerName);
             var connection = new SqlConnection(_configuration?.ConnectionStrings?.DbConnectionString);
-            _query = new Query(connection, sqlCompiler);
+            _queryFactory = new QueryFactory(connection, sqlCompiler);
         }
     }
 }

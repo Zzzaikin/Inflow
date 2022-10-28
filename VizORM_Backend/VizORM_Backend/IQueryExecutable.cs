@@ -1,6 +1,6 @@
-﻿using VizORM_Backend.DTO;
+﻿using VizORM.DataService.DTO;
 
-namespace VizORM_Backend
+namespace VizORM.DataService
 {
     public interface IQueryExecutable
     {

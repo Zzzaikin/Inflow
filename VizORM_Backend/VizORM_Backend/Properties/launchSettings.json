@@ -9,7 +9,7 @@
     }
   },
   "profiles": {
-    "VizORM_Backend": {
+    "VizORM": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,

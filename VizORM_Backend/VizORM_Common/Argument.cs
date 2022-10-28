@@ -1,4 +1,4 @@
-﻿namespace VizORM_Common
+﻿namespace VizORM.Common
 {
     public static class Argument
     {

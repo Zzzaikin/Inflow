@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Localization;
 using System.Globalization;
-using VizORM_Backend.Config;
-using VizORM_Backend.Middlewares;
+using VizORM.DataService.Config;
+using VizORM.DataService.Middlewares;
 
-namespace VizORM_Backend
+namespace VizORM.DataService
 {
     public class Program
     {

@@ -1,9 +1,9 @@
 ﻿using Microsoft.Extensions.Localization;
 using System.Data.SqlClient;
 using System.Net;
-using VizORM_Backend.DTO;
+using VizORM.DataService.DTO;
 
-namespace VizORM_Backend.Middlewares
+namespace VizORM.DataService.Middlewares
 {
     public class ExceptionHandler
     {

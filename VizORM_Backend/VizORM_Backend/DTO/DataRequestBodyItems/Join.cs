@@ -1,6 +1,6 @@
-﻿using VizORM_Common;
+﻿using VizORM.Common;
 
-namespace VizORM_Backend.DTO.DataRequestBodyItems
+namespace VizORM.DataService.DTO.DataRequestBodyItems
 {
     public class Join
     {

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using VizORM_Backend.DTO;
+using VizORM.DataService.DTO;
 
-namespace VizORM_Backend.Controllers.Interfaces
+namespace VizORM.DataService.Controllers.Interfaces
 {
     public interface IDataController
     {

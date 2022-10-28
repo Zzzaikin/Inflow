@@ -1,4 +1,4 @@
-﻿namespace VizORM_Backend.DTO
+﻿namespace VizORM.DataService.DTO
 {
     public class Error
     {

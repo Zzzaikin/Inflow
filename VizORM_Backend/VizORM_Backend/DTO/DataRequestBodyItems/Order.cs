@@ -1,6 +1,4 @@
-﻿using VizORM_Backend.DTO.DataRequestBodyItems;
-
-namespace DataService.DTO.DataRequestBodyItems
+﻿namespace VizORM.DataService.DTO.DataRequestBodyItems
 {
     public class Order
     {

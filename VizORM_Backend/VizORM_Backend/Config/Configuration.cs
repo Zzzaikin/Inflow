@@ -1,8 +1,8 @@
 ﻿using Microsoft.Extensions.Localization;
 using SqlKata.Compilers;
-using VizORM_Common;
+using VizORM.Common;
 
-namespace VizORM_Backend.Config
+namespace VizORM.DataService.Config
 {
     public class Configuration
     {
