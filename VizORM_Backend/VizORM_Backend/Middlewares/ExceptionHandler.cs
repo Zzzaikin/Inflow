@@ -37,10 +37,8 @@ namespace VizORM.DataService.Middlewares
 
             catch (ArgumentException argumentException)
             {
-                // TODO: Make this into string extension method.
                 var localizableString = _stringLocalizer["ArgumentErrorMessage"].Value;
                 var parameterName = argumentException.Message;
-                // End TODO.
                 var message = string.Format(localizableString, parameterName);
 
                 await HandleExceptionAsync(httpContext, argumentException,
@@ -56,10 +54,8 @@ namespace VizORM.DataService.Middlewares
 
             catch (SqlCompilerNotImplementedException sqlCompilerNotImplementedException)
             {
-                // TODO: Make this into string extension method.
                 var localizableString = _stringLocalizer["SqlCompilerNotImplemented"].Value;
                 var sqlCompilerName = sqlCompilerNotImplementedException.Message;
-                // End TODO.
                 var message = string.Format(localizableString, sqlCompilerName);
 
                 await HandleExceptionAsync(httpContext, sqlCompilerNotImplementedException,
