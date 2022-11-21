@@ -73,23 +73,12 @@ namespace VizORM.DataService.Middlewares
         private async Task HandleExceptionAsync(HttpContext httpContext, Exception exception, 
             HttpStatusCode httpStatusCode, string message)
         {
-            var exceptionMessage = exception.ToString();
-            var logMessage = _stringBuilder
-                .Append(message)
-                .Append('\n')
-                .Append(exceptionMessage)
-                .ToString();
+            LogException(exception, message);
+            await SendErrorResponseAsync(httpContext, httpStatusCode, message);
+        }
 
-            _logger.LogError(logMessage);
-
-            _stringBuilder.Clear();
-
-            var httpResponse = httpContext.Response;
-            var httpStatusCodeInt = (int)httpStatusCode;
-
-            httpResponse.ContentType = "application/json";
-            httpResponse.StatusCode = httpStatusCodeInt;
-
+        private async Task SendErrorResponseAsync(HttpContext httpContext, HttpStatusCode httpStatusCode, string message)
+        {
             var seeMoreInLogsMessage = _stringLocalizer["SeeMoreInLogs"].Value;
             message = _stringBuilder
                 .Append(message)
@@ -103,7 +92,27 @@ namespace VizORM.DataService.Middlewares
 
             _stringBuilder.Clear();
 
+            var httpResponse = httpContext.Response;
+            var httpStatusCodeInt = (int)httpStatusCode;
+
+            httpResponse.ContentType = "application/json";
+            httpResponse.StatusCode = httpStatusCodeInt;
+
             await httpResponse.WriteAsJsonAsync(error);
+        }
+
+        private void LogException(Exception exception, string message)
+        {
+            var exceptionMessage = exception.ToString();
+            var logMessage = _stringBuilder
+                .Append(message)
+                .Append('\n')
+                .Append(exceptionMessage)
+                .ToString();
+
+            _logger.LogError(logMessage);
+
+            _stringBuilder.Clear();
         }
     }
 }
