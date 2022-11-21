@@ -117,13 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AnotherError" xml:space="preserve">
-    <value>Произошла невиданная херь! Ну чекни в логах, если хочешь =)</value>
-  </data>
   <data name="ArgumentErrorMessage" xml:space="preserve">
-    <value>Неверные параметры. Где-то там внутри что-то оказалось null или пустой строкой. Подробнее в логах.</value>
+    <value>Параметер "{0}" должен быть определён.</value>
+  </data>
+  <data name="SeeMoreInLogs" xml:space="preserve">
+    <value> См. подробнее в логах.</value>
+  </data>
+  <data name="SqlCompilerNotImplemented" xml:space="preserve">
+    <value>Sql-компилятор "{0}" не реализован.</value>
   </data>
   <data name="SqlErrorMessage" xml:space="preserve">
-    <value>Произошла ошибка при запросе к базе данных. Подробнее в логах.</value>
+    <value>Произошла ошибка при запросе к базе данных.</value>
+  </data>
+  <data name="UnknownError" xml:space="preserve">
+    <value>Произошла неизвестная ошибка.</value>
   </data>
 </root>

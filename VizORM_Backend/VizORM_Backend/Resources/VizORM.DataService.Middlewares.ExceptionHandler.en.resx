@@ -117,13 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AnotherError" xml:space="preserve">
-    <value>Something went wrong. See more in logs.</value>
-  </data>
   <data name="ArgumentErrorMessage" xml:space="preserve">
-    <value>Uncorrect parameters. Something inside was null or string was empty. See more in logs.</value>
+    <value>Parameter "{0}" must be specified.</value>
+  </data>
+  <data name="SeeMoreInLogs" xml:space="preserve">
+    <value> See more in logs.</value>
+  </data>
+  <data name="SqlCompilerNotImplemented" xml:space="preserve">
+    <value>Sql compiler "{0}" not implemented.</value>
   </data>
   <data name="SqlErrorMessage" xml:space="preserve">
-    <value>Error occured while sending request to database. See more in logs</value>
+    <value>Error occured while sending request to database.</value>
+  </data>
+  <data name="UnknownError" xml:space="preserve">
+    <value>An unknown error occurred.</value>
   </data>
 </root>

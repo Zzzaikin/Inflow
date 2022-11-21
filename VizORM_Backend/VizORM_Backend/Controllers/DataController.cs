@@ -32,11 +32,13 @@ namespace VizORM.DataService.Controllers
             SetupDbConnection();
         }
 
+        [HttpPost("Delete")]
         public async Task<IActionResult> Delete(DataRequestBody dataRequestBody)
         {
             throw new NotImplementedException();
         }
 
+        [HttpPost("Insert")]
         public async Task<IActionResult> Insert(DataRequestBody dataRequestBody)
         {
             throw new NotImplementedException();
@@ -56,6 +58,7 @@ namespace VizORM.DataService.Controllers
             return Ok(result);
         }
 
+        [HttpPost("Update")]
         public async Task<IActionResult> Update(DataRequestBody dataRequestBody)
         {
             throw new NotImplementedException();

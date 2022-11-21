@@ -32,11 +32,13 @@ namespace VizORM.DataService
 
             var supportedCultures = new[]
             {
+                // TODO: Move it into config.
                 new CultureInfo("ru"),
                 new CultureInfo("en")
             };
 
             var cultureName = builder.Configuration["Culture"];
+
             app.UseRequestLocalization(new RequestLocalizationOptions 
             {
                 DefaultRequestCulture = new RequestCulture(cultureName),

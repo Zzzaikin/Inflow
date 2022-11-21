@@ -1,13 +1,12 @@
 ﻿using Microsoft.Extensions.Localization;
 using SqlKata.Compilers;
 using VizORM.Common;
+using VizORM.Common.Exceptions;
 
 namespace VizORM.DataService.Config
 {
     public class Configuration
     {
-        private readonly IStringLocalizer<Configuration> _stringLocalizer;
-
         public ConnectionStrings ConnectionStrings { get; set; }
 
         public int MaxSelectedRecords { get; set; }
@@ -16,12 +15,10 @@ namespace VizORM.DataService.Config
 
         public string Culture { get; set; }
 
-        public Configuration(IStringLocalizer<Configuration> stringLocalizer) => _stringLocalizer = stringLocalizer;
-
         public Compiler GetDbCompiler(string sqlCompilerName)
         {
             Argument.NotNullOrEmpty(sqlCompilerName, nameof(sqlCompilerName));
-
+    
             switch (sqlCompilerName)
             {
                 case nameof(SqlServerCompiler):
@@ -43,10 +40,7 @@ namespace VizORM.DataService.Config
                     return new SqliteCompiler();
 
                 default:
-                    var stringFromResource = _stringLocalizer["SqlCompilerNotImplemented"];
-                    var errorMessage = string.Format(stringFromResource, nameof(sqlCompilerName));
-
-                    throw new NotImplementedException(errorMessage);
+                    throw new SqlCompilerNotImplementedException();
             }
         }
     }

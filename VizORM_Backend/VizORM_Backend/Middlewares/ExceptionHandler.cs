@@ -1,12 +1,16 @@
 ﻿using Microsoft.Extensions.Localization;
 using System.Data.SqlClient;
 using System.Net;
+using System.Text;
+using VizORM.Common.Exceptions;
 using VizORM.DataService.DTO;
 
 namespace VizORM.DataService.Middlewares
 {
     public class ExceptionHandler
     {
+        private readonly StringBuilder _stringBuilder;
+
         private readonly RequestDelegate _next;
 
         private readonly ILogger<ExceptionHandler> _logger;
@@ -21,6 +25,7 @@ namespace VizORM.DataService.Middlewares
             _next = next;
             _logger = logger;
             _stringLocalizer = stringLocalizer;
+            _stringBuilder = new StringBuilder();
         }
 
         public async Task InvokeAsync(HttpContext httpContext)
@@ -30,39 +35,58 @@ namespace VizORM.DataService.Middlewares
                 await _next(httpContext);
             }
 
-            catch (SqlException sqlException)
-            {
-                var message = _stringLocalizer["SqlErrorMessage"];
-                await HandleExceptionAsync(httpContext, sqlException,
-                    HttpStatusCode.InternalServerError, message.Value);
-            }
-
             catch (ArgumentException argumentException)
             {
-                var message = _stringLocalizer["ArgumentErrorMessage"];
+                // TODO: Make this into string extension method.
+                var localizableString = _stringLocalizer["ArgumentErrorMessage"].Value;
+                var parameterName = argumentException.Message;
+                // End TODO.
+                var message = string.Format(localizableString, parameterName);
+
                 await HandleExceptionAsync(httpContext, argumentException,
-                    HttpStatusCode.BadRequest, message.Value);
+                    HttpStatusCode.BadRequest, message);
             }
 
-            catch (NotImplementedException notImplementedException)
+            catch (SqlException sqlException)
             {
-                await HandleExceptionAsync(httpContext, notImplementedException,
-                    HttpStatusCode.InternalServerError, notImplementedException.Message);
+                var message = _stringLocalizer["SqlErrorMessage"].Value;
+                await HandleExceptionAsync(httpContext, sqlException,
+                    HttpStatusCode.InternalServerError, message);
+            }
+
+            catch (SqlCompilerNotImplementedException sqlCompilerNotImplementedException)
+            {
+                // TODO: Make this into string extension method.
+                var localizableString = _stringLocalizer["SqlCompilerNotImplemented"].Value;
+                var sqlCompilerName = sqlCompilerNotImplementedException.Message;
+                // End TODO.
+                var message = string.Format(localizableString, sqlCompilerName);
+
+                await HandleExceptionAsync(httpContext, sqlCompilerNotImplementedException,
+                    HttpStatusCode.InternalServerError, message);
             }
 
             catch (Exception exception)
             {
-                var message = _stringLocalizer["AnotherError"];
+                var message = _stringLocalizer["UnknownError"].Value;
                 await HandleExceptionAsync(httpContext, exception,
-                    HttpStatusCode.InternalServerError, message.Value);
+                    HttpStatusCode.InternalServerError, message);
             }
         }
 
         private async Task HandleExceptionAsync(HttpContext httpContext, Exception exception, 
             HttpStatusCode httpStatusCode, string message)
         {
-            var errorMessage = exception.ToString();
-            _logger.LogError(errorMessage);
+            var exceptionMessage = exception.ToString();
+            var logMessage = _stringBuilder
+                .Append(message)
+                .Append('\n')
+                .Append(exceptionMessage)
+                .ToString();
+
+            _logger.LogError(logMessage);
+
+            _stringBuilder.Clear();
 
             var httpResponse = httpContext.Response;
             var httpStatusCodeInt = (int)httpStatusCode;
@@ -70,10 +94,18 @@ namespace VizORM.DataService.Middlewares
             httpResponse.ContentType = "application/json";
             httpResponse.StatusCode = httpStatusCodeInt;
 
+            var seeMoreInLogsMessage = _stringLocalizer["SeeMoreInLogs"].Value;
+            message = _stringBuilder
+                .Append(message)
+                .Append(seeMoreInLogsMessage)
+                .ToString();
+
             var error = new Error
             {
                 Message = message
             };
+
+            _stringBuilder.Clear();
 
             await httpResponse.WriteAsJsonAsync(error);
         }
