@@ -79,6 +79,8 @@ namespace VizORM.DataService.Middlewares
 
         private async Task SendErrorResponseAsync(HttpContext httpContext, HttpStatusCode httpStatusCode, string message)
         {
+            _stringBuilder.Clear();
+
             var seeMoreInLogsMessage = _stringLocalizer["SeeMoreInLogs"].Value;
             message = _stringBuilder
                 .Append(message)
@@ -103,6 +105,8 @@ namespace VizORM.DataService.Middlewares
 
         private void LogException(Exception exception, string message)
         {
+            _stringBuilder.Clear();
+
             var exceptionMessage = exception.ToString();
             var logMessage = _stringBuilder
                 .Append(message)
