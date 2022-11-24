@@ -17,6 +17,12 @@ namespace DataServiceTests
             CreateTestTableInDB();
         }
 
+        [TearDown]
+        public void Cleanup()
+        {
+            DropTestTableInDB();
+        }
+
         [Test]
         public async Task InvokeAsync_WhenSqlExceptionOccured_ShouldGetHttpResponseWithErrorMessage()
         {
@@ -43,6 +49,11 @@ namespace DataServiceTests
         }
 
         private void CreateTestTableInDB()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void DropTestTableInDB()
         {
             throw new NotImplementedException();
         }
