@@ -118,13 +118,13 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ArgumentErrorMessage" xml:space="preserve">
-    <value>Parameter "{0}" must be specified.</value>
+    <value>Parameter [{0}] must be specified.</value>
   </data>
   <data name="SeeMoreInLogs" xml:space="preserve">
     <value> See more in logs.</value>
   </data>
   <data name="SqlCompilerNotImplemented" xml:space="preserve">
-    <value>Sql compiler "{0}" not implemented.</value>
+    <value>Sql compiler [{0}] not implemented.</value>
   </data>
   <data name="SqlErrorMessage" xml:space="preserve">
     <value>Error occured while sending request to database.</value>

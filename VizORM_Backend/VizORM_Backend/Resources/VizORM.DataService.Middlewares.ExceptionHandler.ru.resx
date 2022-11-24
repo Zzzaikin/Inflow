@@ -118,13 +118,13 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ArgumentErrorMessage" xml:space="preserve">
-    <value>Параметер "{0}" должен быть определён.</value>
+    <value>Параметер [{0}] должен быть определён.</value>
   </data>
   <data name="SeeMoreInLogs" xml:space="preserve">
     <value> См. подробнее в логах.</value>
   </data>
   <data name="SqlCompilerNotImplemented" xml:space="preserve">
-    <value>Sql-компилятор "{0}" не реализован.</value>
+    <value>Sql-компилятор [{0}] не реализован.</value>
   </data>
   <data name="SqlErrorMessage" xml:space="preserve">
     <value>Произошла ошибка при запросе к базе данных.</value>

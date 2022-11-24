@@ -35,6 +35,7 @@ namespace VizORM.DataService.Middlewares
                 await _next(httpContext);
             }
 
+            // TODO: Add catch ArgumentNullException.
             catch (ArgumentException argumentException)
             {
                 var localizableString = _stringLocalizer["ArgumentErrorMessage"].Value;
