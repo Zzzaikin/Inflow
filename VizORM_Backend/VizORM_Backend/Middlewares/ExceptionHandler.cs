@@ -4,6 +4,7 @@ using System.Net;
 using System.Text;
 using VizORM.Common.Exceptions;
 using VizORM.DataService.DTO;
+using VizORMNotImplementedException = VizORM.Common.Exceptions.NotImplementedException;
 
 namespace VizORM.DataService.Middlewares
 {
@@ -53,13 +54,15 @@ namespace VizORM.DataService.Middlewares
                     HttpStatusCode.InternalServerError, message);
             }
 
-            catch (SqlCompilerNotImplementedException sqlCompilerNotImplementedException)
+            catch (VizORMNotImplementedException notImplementedException)
             {
-                var localizableString = _stringLocalizer["SqlCompilerNotImplemented"].Value;
-                var sqlCompilerName = sqlCompilerNotImplementedException.Message;
-                var message = string.Format(localizableString, sqlCompilerName);
+                var localizableStringName = notImplementedException.LocalizableStringName;
+                var localizableString = _stringLocalizer[localizableStringName].Value;
+                var notImplementedValue = notImplementedException.NotImplementedValue;
 
-                await HandleExceptionAsync(httpContext, sqlCompilerNotImplementedException,
+                var message = string.Format(localizableString, notImplementedValue);
+
+                await HandleExceptionAsync(httpContext, notImplementedException,
                     HttpStatusCode.InternalServerError, message);
             }
 

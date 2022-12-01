@@ -20,7 +20,7 @@ namespace VizORM.DataService.Controllers
 
         private readonly IStringLocalizer<DataController> _stringLocalizer;
 
-        private QueryFactory _queryFactory;
+        private QueryFactory _database;
 
         public DataController(ILogger<DataController> logger, IOptions<Configuration> configuration, 
             IStringLocalizer<DataController> stringLocalizer)
@@ -47,12 +47,12 @@ namespace VizORM.DataService.Controllers
         [HttpPost("Select")]
         public async Task<IActionResult> Select([FromBody] DataRequestBody dataRequestBody)
         {
-            var result = await _queryFactory.Query()
+            var result = await _database.Query()
                 .Select(dataRequestBody.ColumnNames.ToArray())
                 .From(dataRequestBody.EntityName)
-                .Join(vizORMJoins: dataRequestBody.Joins, _stringLocalizer)
-                .Where(dataRequestBody.Filters, _stringLocalizer)
-                .OrderBy(dataRequestBody.Order, _stringLocalizer)
+                .Join(dataRequestBody.Joins)
+                .Where(dataRequestBody.Filters)
+                .OrderBy(dataRequestBody.Order)
                 .GetAsync();
 
             return Ok(result);
@@ -68,7 +68,7 @@ namespace VizORM.DataService.Controllers
         {
             var sqlCompiler = _configuration.GetDbCompiler(_configuration.SqlCompilerName);
             var connection = new SqlConnection(_configuration?.ConnectionStrings?.DbConnectionString);
-            _queryFactory = new QueryFactory(connection, sqlCompiler);
+            _database = new QueryFactory(connection, sqlCompiler);
         }
     }
 }

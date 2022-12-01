@@ -1,3 +1,4 @@
+using SqlKata.Execution;
 using System.Configuration;
 using System.Net.Http.Json;
 using System.Net.NetworkInformation;
@@ -11,16 +12,13 @@ namespace DataServiceTests
 
         private readonly HttpClient _httpClient = new HttpClient();
 
+        private QueryFactory _database;
+
         [SetUp]
         public void Setup()
         {
+            SetupDBConnection();
             CreateTestTableInDB();
-        }
-
-        [TearDown]
-        public void Cleanup()
-        {
-            DropTestTableInDB();
         }
 
         [Test]
@@ -33,6 +31,12 @@ namespace DataServiceTests
 
             Assert.That(responseBody, Is.Not.Null);
             Assert.That(responseBody.Message, Is.Not.Empty);
+        }
+
+        [TearDown]
+        public void CleanUp()
+        {
+            DropTestTableInDB();
         }
 
         private Task<HttpResponseMessage> SendSimpleSelectRequestAsync()
@@ -56,6 +60,11 @@ namespace DataServiceTests
         private void DropTestTableInDB()
         {
             throw new NotImplementedException();
+        }
+
+        private void SetupDBConnection()
+        {
+            
         }
     }
 }

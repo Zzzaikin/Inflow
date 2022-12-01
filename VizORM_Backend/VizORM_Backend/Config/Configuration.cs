@@ -1,7 +1,7 @@
-﻿using Microsoft.Extensions.Localization;
-using SqlKata.Compilers;
+﻿using SqlKata.Compilers;
 using VizORM.Common;
 using VizORM.Common.Exceptions;
+using VizORMNotImplementedException = VizORM.Common.Exceptions.NotImplementedException;
 
 namespace VizORM.DataService.Config
 {
@@ -40,7 +40,7 @@ namespace VizORM.DataService.Config
                     return new SqliteCompiler();
 
                 default:
-                    throw new SqlCompilerNotImplementedException(sqlCompilerName);
+                    throw new VizORMNotImplementedException(sqlCompilerName, "SqlCompilerNotImplemented");
             }
         }
     }

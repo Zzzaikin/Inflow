@@ -120,6 +120,15 @@
   <data name="ArgumentErrorMessage" xml:space="preserve">
     <value>Parameter [{0}] must be specified.</value>
   </data>
+  <data name="ComparisonTypeNotImpemented" xml:space="preserve">
+    <value>Comparison type [{0}] is not implemented.</value>
+  </data>
+  <data name="JoinTypeNotImplemented" xml:space="preserve">
+    <value>{0} - this join type between tables is not implemented.</value>
+  </data>
+  <data name="OrderModeNotImplemented" xml:space="preserve">
+    <value>Order [{0}] is not implemented.</value>
+  </data>
   <data name="SeeMoreInLogs" xml:space="preserve">
     <value> See more in logs.</value>
   </data>

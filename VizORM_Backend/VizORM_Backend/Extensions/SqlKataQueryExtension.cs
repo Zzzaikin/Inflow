@@ -1,14 +1,13 @@
-﻿using Microsoft.Extensions.Localization;
-using SqlKata;
-using VizORM.DataService.Controllers;
+﻿using SqlKata;
 using VizORM.DataService.DTO.DataRequestBodyItems;
 using VizORMJoin = VizORM.DataService.DTO.DataRequestBodyItems.Join;
+using VizORMNotImplementedException = VizORM.Common.Exceptions.NotImplementedException;
 
 namespace VizORM.DataService.Extensions
 {
     public static class SqlKataQueryExtension
     {
-        public static Query Join(this Query query, IEnumerable<VizORMJoin> vizORMJoins, IStringLocalizer<DataController> stringLocalizer) 
+        public static Query Join(this Query query, IEnumerable<VizORMJoin> vizORMJoins) 
         {
             foreach (var vizORMJoin in vizORMJoins)
             {
@@ -16,7 +15,7 @@ namespace VizORM.DataService.Extensions
                 var leftColumnName = vizORMJoin.LeftColumnName;
                 var rightColumnName = vizORMJoin.RightColumnName;
 
-                switch (vizORMJoin.JoinType)
+                switch (vizORMJoin.Type)
                 {
                     case JoinType.Left:
                         query.LeftJoin(joinedEntityName, leftColumnName, rightColumnName);
@@ -35,15 +34,15 @@ namespace VizORM.DataService.Extensions
                         break;
 
                     default:
-                        var joinTypeNotImpementedMessage = stringLocalizer["JoinTypeNotImpementedMessage"].Value;
-                        throw new NotImplementedException(joinTypeNotImpementedMessage);
+                        var joinTypeName = vizORMJoin.Type.GetType().ToString();
+                        throw new VizORMNotImplementedException(joinTypeName, "JoinTypeNotImplemented");
                 }
             }
 
             return query;
         }
 
-        public static Query Where(this Query query, IEnumerable<Filter> filters, IStringLocalizer<DataController> stringLocalizer)
+        public static Query Where(this Query query, IEnumerable<Filter> filters)
         {
             foreach (var filter in filters)
             {
@@ -66,15 +65,15 @@ namespace VizORM.DataService.Extensions
                         break;
 
                     default:
-                        var compirisonTypeNotImpementedMessage = stringLocalizer["JoinTypeNotImpementedMessage"].Value;
-                        throw new NotImplementedException(compirisonTypeNotImpementedMessage);
+                        var comparisonTypeName = filter.ComparisonType.GetType().ToString();
+                        throw new VizORMNotImplementedException(comparisonTypeName, "ComparisonTypeNotImpemented");
                 }
             }
 
             return query;
         }
 
-        public static Query OrderBy(this Query query, Order order, IStringLocalizer<DataController> stringLocalizer)
+        public static Query OrderBy(this Query query, Order order)
         {
             switch (order.OrderMode)
             {
@@ -87,8 +86,8 @@ namespace VizORM.DataService.Extensions
                     break;
 
                 default:
-                    var orderModeNotImpementedMessage = stringLocalizer["JoinTypeNotImpementedMessage"].Value;
-                    throw new NotImplementedException(orderModeNotImpementedMessage);
+                    var orderModeName = order.OrderMode.GetType().ToString();
+                    throw new VizORMNotImplementedException(orderModeName, "OrderModeNotImplemented");
             }
 
             return query;
