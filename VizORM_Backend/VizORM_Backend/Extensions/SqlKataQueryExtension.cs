@@ -9,24 +9,26 @@ namespace VizORM.DataService.Extensions
     {
         public static Query Join(this Query query, IEnumerable<VizORMJoin> joins) 
         {
-            foreach (var vizORMJoin in joins)
+            foreach (var join in joins)
             {
-                var joinedEntityName = vizORMJoin.JoinedEntityName;
-                var leftColumnName = vizORMJoin.LeftColumnName;
-                var rightColumnName = vizORMJoin.RightColumnName;
+                var joinedEntityName = join.JoinedEntityName;
+                var leftColumnName = join.LeftColumnName;
+                var rightColumnName = join.RightColumnName;
 
-                switch (vizORMJoin.Type)
+                var joinType = join.Type;
+
+                switch (joinType)
                 {
                     case JoinType.Left:
                         query.LeftJoin(joinedEntityName, leftColumnName, rightColumnName);
                         break;
 
-                    case JoinType.Right:
-                        query.RightJoin(joinedEntityName, leftColumnName, rightColumnName);
-                        break;
-
                     case JoinType.Inner:
                         query.Join(joinedEntityName, leftColumnName, rightColumnName);
+                        break;
+
+                    case JoinType.Right:
+                        query.RightJoin(joinedEntityName, leftColumnName, rightColumnName);
                         break;
 
                     case JoinType.Cross:
@@ -34,8 +36,11 @@ namespace VizORM.DataService.Extensions
                         break;
 
                     default:
-                        var joinTypeName = vizORMJoin.Type.GetType().ToString();
-                        throw new VizORMNotImplementedException(joinTypeName, "JoinTypeNotImplemented");
+                        var joinTypeType = joinType.GetType();
+                        var joinTypeTypeName = joinTypeType.Name;
+                        var exceptionMessage = GetEnumExceptionMessage(joinTypeType, (int)joinType);
+
+                        throw new VizORMNotImplementedException(joinTypeTypeName, "JoinTypeNotImplemented", exceptionMessage);
                 }
             }
 
@@ -46,6 +51,8 @@ namespace VizORM.DataService.Extensions
         {
             foreach (var filter in filters)
             {
+                var comparisonType = filter.ComparisonType;
+
                 switch (filter.ComparisonType)
                 {
                     case ComparisonType.Equal:
@@ -65,8 +72,11 @@ namespace VizORM.DataService.Extensions
                         break;
 
                     default:
-                        var comparisonTypeName = filter.ComparisonType.GetType().ToString();
-                        throw new VizORMNotImplementedException(comparisonTypeName, "ComparisonTypeNotImpemented");
+                        var comparisonTypeType = comparisonType.GetType();
+                        var comparisonTypeTypeName = comparisonTypeType.Name;
+                        var exceptionMessage = GetEnumExceptionMessage(comparisonTypeType, (int)comparisonType);
+
+                        throw new VizORMNotImplementedException(comparisonTypeTypeName, "ComparisonTypeNotImpemented", exceptionMessage);
                 }
             }
 
@@ -75,7 +85,9 @@ namespace VizORM.DataService.Extensions
 
         public static Query OrderBy(this Query query, Order order)
         {
-            switch (order.OrderMode)
+            var orderMode = order.Mode;
+
+            switch (orderMode)
             {
                 case OrderMode.Asc:
                     query.OrderBy(order.OrderColumnName);
@@ -86,11 +98,19 @@ namespace VizORM.DataService.Extensions
                     break;
 
                 default:
-                    var orderModeName = order.OrderMode.GetType().ToString();
-                    throw new VizORMNotImplementedException(orderModeName, "OrderModeNotImplemented");
+                    var orderModeType = orderMode.GetType();
+                    var orderModeTypeName = orderModeType.Name;
+                    var exceptionMessage = GetEnumExceptionMessage(orderModeType, (int)orderMode);
+
+                    throw new VizORMNotImplementedException(orderModeTypeName, "OrderModeNotImplemented", exceptionMessage);
             }
 
             return query;
+        }
+
+        private static string GetEnumExceptionMessage(Type type, int value)
+        {
+            return $"Enum {type.FullName} is not implement constant such as {value}";
         }
     }
 }

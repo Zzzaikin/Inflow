@@ -2,7 +2,7 @@
 {
     public class Order
     {
-        public OrderMode OrderMode { get; set; } = OrderMode.Asc;
+        public OrderMode Mode { get; set; }
 
         public string OrderColumnName { get; set; } = "Id";
     }

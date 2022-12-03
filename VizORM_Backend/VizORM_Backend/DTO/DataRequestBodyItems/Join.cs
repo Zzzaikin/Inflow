@@ -52,6 +52,6 @@ namespace VizORM.DataService.DTO.DataRequestBodyItems
             }
         }
 
-        public JoinType Type { get; set; } = JoinType.Left;
+        public JoinType Type { get; set; }
     }
 }

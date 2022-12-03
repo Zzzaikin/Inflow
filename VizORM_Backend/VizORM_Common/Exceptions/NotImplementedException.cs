@@ -8,8 +8,8 @@ namespace VizORM.Common.Exceptions
 
         public string NotImplementedValue { get; }
 
-        public NotImplementedException(string notImplementedValue, string localizableStringName) 
-            : base(localizableStringName) 
+        public NotImplementedException(string notImplementedValue, string localizableStringName, string message) 
+            : base(message) 
         {
             LocalizableStringName = localizableStringName;
             NotImplementedValue = notImplementedValue;

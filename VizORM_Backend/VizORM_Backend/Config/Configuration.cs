@@ -40,7 +40,8 @@ namespace VizORM.DataService.Config
                     return new SqliteCompiler();
 
                 default:
-                    throw new VizORMNotImplementedException(sqlCompilerName, "SqlCompilerNotImplemented");
+                    var exeptionMessage = $"Sql comliler such as {sqlCompilerName} not implemented";
+                    throw new VizORMNotImplementedException(sqlCompilerName, "SqlCompilerNotImplemented", exeptionMessage);
             }
         }
     }

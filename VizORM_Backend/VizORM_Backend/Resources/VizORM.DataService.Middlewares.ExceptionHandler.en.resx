@@ -124,7 +124,7 @@
     <value>Comparison type [{0}] is not implemented.</value>
   </data>
   <data name="JoinTypeNotImplemented" xml:space="preserve">
-    <value>{0} - this join type between tables is not implemented.</value>
+    <value>Join type between tables [{0}] is not implemented.</value>
   </data>
   <data name="OrderModeNotImplemented" xml:space="preserve">
     <value>Order [{0}] is not implemented.</value>

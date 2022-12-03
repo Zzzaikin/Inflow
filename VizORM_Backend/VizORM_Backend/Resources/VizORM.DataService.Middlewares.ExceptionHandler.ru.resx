@@ -124,7 +124,7 @@
     <value>Тип сравнения [{0}] не реализован.</value>
   </data>
   <data name="JoinTypeNotImplemented" xml:space="preserve">
-    <value>[{0}] - данный тип связи между таблицами не реализован.</value>
+    <value>Тип связи между таблицами [{0}] не реализован.</value>
   </data>
   <data name="OrderModeNotImplemented" xml:space="preserve">
     <value>Тип сортировки [{0}] не реализован.</value>

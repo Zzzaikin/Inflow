@@ -8,7 +8,7 @@ namespace VizORM.DataService.DTO.DataRequestBodyItems
 
         private string _rightColumn;
 
-        public ComparisonType ComparisonType;
+        public ComparisonType ComparisonType { get; set; }
 
         public string LeftColumn
         {
