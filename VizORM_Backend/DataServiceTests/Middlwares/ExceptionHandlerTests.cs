@@ -4,7 +4,7 @@ using System.Net.Http.Json;
 using System.Net.NetworkInformation;
 using VizORM.DataService.DTO;
 
-namespace DataServiceTests
+namespace DataServiceTests.Middlwares
 {
     public class ExceptionHandlerTests
     {
@@ -64,7 +64,7 @@ namespace DataServiceTests
 
         private void SetupDBConnection()
         {
-            
+
         }
     }
 }
