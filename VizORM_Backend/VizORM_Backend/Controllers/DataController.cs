@@ -50,9 +50,9 @@ namespace VizORM.DataService.Controllers
             var result = await _database.Query()
                 .Select(dataRequestBody.ColumnNames.ToArray())
                 .From(dataRequestBody.EntityName)
-                .Join(dataRequestBody.Joins)
-                .Where(dataRequestBody.Filters)
-                .OrderBy(dataRequestBody.Order)
+                .Join(joins: dataRequestBody.Joins)
+                .Where(filters: dataRequestBody.Filters)
+                .OrderBy(order: dataRequestBody.Order)
                 .GetAsync();
 
             return Ok(result);

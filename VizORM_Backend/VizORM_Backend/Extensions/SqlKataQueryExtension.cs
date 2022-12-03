@@ -7,9 +7,9 @@ namespace VizORM.DataService.Extensions
 {
     public static class SqlKataQueryExtension
     {
-        public static Query Join(this Query query, IEnumerable<VizORMJoin> vizORMJoins) 
+        public static Query Join(this Query query, IEnumerable<VizORMJoin> joins) 
         {
-            foreach (var vizORMJoin in vizORMJoins)
+            foreach (var vizORMJoin in joins)
             {
                 var joinedEntityName = vizORMJoin.JoinedEntityName;
                 var leftColumnName = vizORMJoin.LeftColumnName;

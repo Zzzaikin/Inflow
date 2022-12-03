@@ -2,7 +2,6 @@
 using System.Data.SqlClient;
 using System.Net;
 using System.Text;
-using VizORM.Common.Exceptions;
 using VizORM.DataService.DTO;
 using VizORMNotImplementedException = VizORM.Common.Exceptions.NotImplementedException;
 
