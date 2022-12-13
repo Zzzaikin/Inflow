@@ -1,7 +1,5 @@
-﻿using SqlKata.Compilers;
-using VizORM.Common;
-using VizORM.Common.Exceptions;
-using VizORMNotImplementedException = VizORM.Common.Exceptions.NotImplementedException;
+﻿using VizORM.Common;
+using VizORM.Common.Database;
 
 namespace VizORM.DataService.Config
 {
@@ -15,34 +13,6 @@ namespace VizORM.DataService.Config
 
         public string Culture { get; set; }
 
-        public Compiler GetDbCompiler(string sqlCompilerName)
-        {
-            Argument.NotNullOrEmpty(sqlCompilerName, nameof(sqlCompilerName));
-    
-            switch (sqlCompilerName)
-            {
-                case nameof(SqlServerCompiler):
-                    return new SqlServerCompiler();
-
-                case nameof(MySqlCompiler):
-                    return new MySqlCompiler();
-
-                case nameof(FirebirdCompiler):
-                    return new FirebirdCompiler();
-
-                case nameof(OracleCompiler):
-                    return new OracleCompiler();
-
-                case nameof(PostgresCompiler):
-                    return new PostgresCompiler();
-
-                case nameof(SqliteCompiler):
-                    return new SqliteCompiler();
-
-                default:
-                    var exeptionMessage = $"Sql comliler such as {sqlCompilerName} not implemented";
-                    throw new VizORMNotImplementedException(sqlCompilerName, "SqlCompilerNotImplemented", exeptionMessage);
-            }
-        }
+        public Options DbOptions => ConfigurationUtilities.GetDbOptions(SqlCompilerName, ConnectionStrings.DbConnectionString);
     }
 }

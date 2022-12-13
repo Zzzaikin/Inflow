@@ -2,7 +2,6 @@
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
 using SqlKata.Execution;
-using System.Data.SqlClient;
 using VizORM.DataService.Config;
 using VizORM.DataService.Controllers.Interfaces;
 using VizORM.DataService.DTO;
@@ -66,9 +65,8 @@ namespace VizORM.DataService.Controllers
 
         private void SetupDbConnection()
         {
-            var sqlCompiler = _configuration.GetDbCompiler(_configuration.SqlCompilerName);
-            var connection = new SqlConnection(_configuration?.ConnectionStrings?.DbConnectionString);
-            _database = new QueryFactory(connection, sqlCompiler);
+            var dbOptions = _configuration.DbOptions;
+            _database = new QueryFactory(dbOptions.SqlConnection, dbOptions.SqlCompiler);
         }
     }
 }
