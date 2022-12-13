@@ -9,6 +9,11 @@ namespace VizORM.DataService.Extensions
     {
         public static Query Join(this Query query, IEnumerable<VizORMJoin> joins) 
         {
+            if (joins == null)
+            {
+                return query;
+            }
+
             foreach (var join in joins)
             {
                 var joinedEntityName = join.JoinedEntityName;
@@ -49,6 +54,11 @@ namespace VizORM.DataService.Extensions
 
         public static Query Where(this Query query, IEnumerable<Filter> filters)
         {
+            if (filters == null)
+            {
+                return query;
+            }
+
             foreach (var filter in filters)
             {
                 var comparisonType = filter.ComparisonType;
@@ -85,6 +95,11 @@ namespace VizORM.DataService.Extensions
 
         public static Query OrderBy(this Query query, Order order)
         {
+            if (order == null) 
+            {
+                return query; 
+            }
+
             var orderMode = order.Mode;
 
             switch (orderMode)
