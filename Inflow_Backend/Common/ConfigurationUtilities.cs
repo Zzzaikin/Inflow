@@ -6,6 +6,7 @@ using Npgsql;
 
 namespace Inflow.Common
 {
+    //
     public static class ConfigurationUtilities
     {
         public static Database.Options GetDbOptions(string sqlCompilerName, string connectionString)
