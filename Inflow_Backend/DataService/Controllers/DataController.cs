@@ -32,19 +32,19 @@ namespace Inflow.DataService.Controllers
         }
 
         [HttpPost("Delete")]
-        public async Task<IActionResult> Delete(DataRequestBody dataRequestBody)
+        public async Task<IActionResult> Delete(DeleteDataRequestBody dataRequestBody)
         {
             throw new NotImplementedException();
         }
 
         [HttpPost("Insert")]
-        public async Task<IActionResult> Insert(DataRequestBody dataRequestBody)
+        public async Task<IActionResult> Insert(InsertDataRequestBody dataRequestBody)
         {
             throw new NotImplementedException();
         }
 
         [HttpPost("Select")]
-        public async Task<IActionResult> Select([FromBody] DataRequestBody dataRequestBody)
+        public async Task<IActionResult> Select([FromBody] SelectDataRequestBody dataRequestBody)
         {
             var result = await _database.Query()
                 .Select(dataRequestBody.ColumnNames.ToArray())
@@ -58,7 +58,7 @@ namespace Inflow.DataService.Controllers
         }
 
         [HttpPost("Update")]
-        public async Task<IActionResult> Update(DataRequestBody dataRequestBody)
+        public async Task<IActionResult> Update(UpdateDataRequestBody dataRequestBody)
         {
             throw new NotImplementedException();
         }

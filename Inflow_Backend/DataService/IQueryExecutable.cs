@@ -4,12 +4,12 @@ namespace Inflow.DataService
 {
     public interface IQueryExecutable
     {
-        Task<IEnumerable<dynamic>> SelectAsync(DataRequestBody dataRequestBody);
+        Task<IEnumerable<dynamic>> SelectAsync(BaseDataRequestBody dataRequestBody);
 
-        Task<int> UpdateAsync(DataRequestBody dataRequestBody);
+        Task<int> UpdateAsync(BaseDataRequestBody dataRequestBody);
 
-        Task<int> DeleteAsync(DataRequestBody dataRequestBody);
+        Task<int> DeleteAsync(BaseDataRequestBody dataRequestBody);
 
-        Task<int> InsertAsync(DataRequestBody dataRequestBody);
+        Task<int> InsertAsync(BaseDataRequestBody dataRequestBody);
     }
 }

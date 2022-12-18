@@ -5,12 +5,12 @@ namespace Inflow.DataService.Controllers.Interfaces
 {
     public interface IDataController
     {
-        Task<IActionResult> Select(DataRequestBody dataRequestBody);
+        Task<IActionResult> Select(SelectDataRequestBody dataRequestBody);
 
-        Task<IActionResult> Update(DataRequestBody dataRequestBody);
+        Task<IActionResult> Update(UpdateDataRequestBody dataRequestBody);
 
-        Task<IActionResult> Delete(DataRequestBody dataRequestBody);
+        Task<IActionResult> Delete(DeleteDataRequestBody dataRequestBody);
 
-        Task<IActionResult> Insert(DataRequestBody dataRequestBody);
+        Task<IActionResult> Insert(InsertDataRequestBody dataRequestBody);
     }
 }
