@@ -66,11 +66,11 @@ namespace Inflow.DataService.Extensions
                 switch (filter.ComparisonType)
                 {
                     case ComparisonType.Equal:
-                        query.Where(filter.LeftColumn, "=", filter.RightColumn);
+                        query.Where(filter.LeftColumn, "=", filter.Value);
                         break;
 
                     case ComparisonType.NotEqual: 
-                        query.WhereNot(filter.LeftColumn, "=", filter.RightColumn);
+                        query.WhereNot(filter.LeftColumn, "=", filter.Value);
                         break;
 
                     case ComparisonType.IsNull:
