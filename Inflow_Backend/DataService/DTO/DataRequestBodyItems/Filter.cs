@@ -4,22 +4,22 @@ namespace Inflow.DataService.DTO.DataRequestBodyItems
 {
     public class Filter
     {
-        private string _leftColumn;
+        private string _column;
 
         private string _value;
 
         public ComparisonType ComparisonType { get; set; }
 
-        public string LeftColumn
+        public string Column
         {
             get
             {
-                return _leftColumn;
+                return _column;
             }
             set
             {
-                Argument.NotNullOrEmpty(value, nameof(LeftColumn));
-                _leftColumn = value;
+                Argument.NotNullOrEmpty(value, nameof(Column));
+                _column = value;
             }
         }
 

@@ -7,6 +7,8 @@
         IsNull,
         NotNull,
         In,
-        NotIn
+        NotIn,
+        More,
+        Less
     }
 }
