@@ -6,7 +6,7 @@ namespace Inflow.DataService.DTO
     {
         public IEnumerable<string>? ColumnNames { get; set; }
 
-        public IEnumerable<Filter>? Filters { get; set; }
+        public IEnumerable<FiltersGroups>? FiltersGroups { get; set; }
 
         public IEnumerable<Join>? Joins { get; set; }
 

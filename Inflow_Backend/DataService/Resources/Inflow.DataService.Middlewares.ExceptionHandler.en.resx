@@ -123,6 +123,9 @@
   <data name="ComparisonTypeNotImpemented" xml:space="preserve">
     <value>Comparison type [{0}] is not implemented.</value>
   </data>
+  <data name="ConditionalOperatorNotImplemented" xml:space="preserve">
+    <value>Conditional operator [{0}] is not implemented.</value>
+  </data>
   <data name="JoinTypeNotImplemented" xml:space="preserve">
     <value>Join type between tables [{0}] is not implemented.</value>
   </data>

@@ -46,11 +46,12 @@ namespace Inflow.DataService.Controllers
         [HttpPost("Select")]
         public async Task<IActionResult> Select([FromBody] SelectDataRequestBody dataRequestBody)
         {
+            // TODO: Rename dataRequestBody parameter to selectDataRequestBody. And in another endpoints.
             var result = await _database.Query()
                 .Select(dataRequestBody.ColumnNames.ToArray())
                 .From(dataRequestBody.EntityName)
                 .Join(joins: dataRequestBody.Joins)
-                .Where(filters: dataRequestBody.Filters)
+                .Where(filtersGroups: dataRequestBody.FiltersGroups)
                 .OrderBy(order: dataRequestBody.Order)
                 .GetAsync();
 

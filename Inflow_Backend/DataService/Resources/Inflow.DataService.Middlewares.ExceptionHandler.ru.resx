@@ -123,6 +123,9 @@
   <data name="ComparisonTypeNotImpemented" xml:space="preserve">
     <value>Тип сравнения [{0}] не реализован.</value>
   </data>
+  <data name="ConditionalOperatorNotImplemented" xml:space="preserve">
+    <value>Условный оператор [{0}] не реализован.</value>
+  </data>
   <data name="JoinTypeNotImplemented" xml:space="preserve">
     <value>Тип связи между таблицами [{0}] не реализован.</value>
   </data>

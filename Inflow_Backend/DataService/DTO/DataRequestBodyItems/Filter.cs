@@ -8,6 +8,8 @@ namespace Inflow.DataService.DTO.DataRequestBodyItems
 
         private string _value;
 
+        public ConditionalOperator ConditionalOperator { get; set; }
+
         public ComparisonType ComparisonType { get; set; }
 
         public string Column
