@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Common\Inflow.Common.csproj" />
+    <ProjectReference Include="..\Inflow.Common\Inflow.Common.csproj" />
   </ItemGroup>
 
 </Project>
