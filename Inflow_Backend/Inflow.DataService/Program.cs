@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Localization;
 using System.Globalization;
-using Inflow.DataService.Config;
 using Inflow.DataService.Middlewares;
 
 namespace Inflow.DataService
@@ -30,16 +29,11 @@ namespace Inflow.DataService
                 app.UseSwaggerUI();
             }
 
-            var supportedCultures = new[]
-            {
-                // TODO: Move it into config.
-                new CultureInfo("ru"),
-                new CultureInfo("en")
-            };
+            var configuration = app.Configuration.Get<Configuration>();
+            var cultureName = configuration.Culture;
+            var supportedCultures = configuration.SupportedCultures.ToList();
 
-            var cultureName = builder.Configuration["Culture"];
-
-            app.UseRequestLocalization(new RequestLocalizationOptions 
+            app.UseRequestLocalization(new RequestLocalizationOptions
             {
                 DefaultRequestCulture = new RequestCulture(cultureName),
                 SupportedCultures = supportedCultures,

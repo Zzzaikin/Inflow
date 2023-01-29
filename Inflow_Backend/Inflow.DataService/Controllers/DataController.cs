@@ -2,7 +2,6 @@
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
 using SqlKata.Execution;
-using Inflow.DataService.Config;
 using Inflow.DataService.Controllers.Interfaces;
 using Inflow.DataService.DTO;
 using Inflow.DataService.Extensions;

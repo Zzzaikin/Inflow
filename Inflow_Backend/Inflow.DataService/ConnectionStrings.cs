@@ -1,4 +1,4 @@
-﻿namespace Inflow.DataService.Config
+﻿namespace Inflow.DataService
 {
     public class ConnectionStrings
     {
