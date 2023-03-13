@@ -3,15 +3,21 @@
     public static class Argument
     {
         public static void NotNullOrEmpty(string argumentValue, string argumentName)
-        {
+        {//TODO: Test thread culter info.
             if (string.IsNullOrEmpty(argumentValue))
-                throw new ArgumentException(argumentName);
+            {
+                var exceprionMessage = string.Format(GlobalResource.ArgumentCanNotBeNullOrEmpty, argumentName);
+                throw new ArgumentException(exceprionMessage);
+            }
         }
 
         public static void NotNull(object argumentValue, string argumentName)
         {
             if (argumentValue == null)
-                throw new ArgumentNullException(argumentName);
+            {
+                var exceprionMessage = string.Format(GlobalResource.ArgumentCanNotBeNull, argumentName);
+                throw new ArgumentNullException(exceprionMessage);
+            }
         }
     }
 }

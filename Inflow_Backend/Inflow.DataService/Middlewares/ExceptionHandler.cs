@@ -1,16 +1,12 @@
-﻿using Microsoft.Extensions.Localization;
+﻿using System.Net;
 using System.Data.SqlClient;
-using System.Net;
-using System.Text;
-using Inflow.DataService.DTO;
-using InflowNotImplementedException = Inflow.Common.Exceptions.NotImplementedException;
+using Microsoft.Extensions.Localization;
+using Inflow.Data.DTO;
 
 namespace Inflow.DataService.Middlewares
 {
     public class ExceptionHandler
     {
-        private readonly StringBuilder _stringBuilder;
-
         private readonly RequestDelegate _next;
 
         private readonly ILogger<ExceptionHandler> _logger;
@@ -25,101 +21,68 @@ namespace Inflow.DataService.Middlewares
             _next = next;
             _logger = logger;
             _stringLocalizer = stringLocalizer;
-            _stringBuilder = new StringBuilder();
         }
 
         public async Task InvokeAsync(HttpContext httpContext)
+        {
+            await HandleExceptionAsync(httpContext);
+        }
+
+        private async Task HandleExceptionAsync(HttpContext httpContext)
         {
             try
             {
                 await _next(httpContext);
             }
 
-            // TODO: Add catch ArgumentNullException.
-            catch (ArgumentException argumentException)
+            catch (ArgumentException argumentEception)
             {
-                var localizableString = _stringLocalizer["ArgumentErrorMessage"].Value;
-                var parameterName = argumentException.Message;
-                var message = string.Format(localizableString, parameterName);
+                await LogExceptionAndSendErrorResponseAsync(argumentEception, argumentEception.Message,
+                    httpContext, HttpStatusCode.BadRequest);
+            }
 
-                await HandleExceptionAsync(httpContext, argumentException,
-                    HttpStatusCode.BadRequest, message);
+            catch (NotImplementedException notImplementedException)
+            {
+                await LogExceptionAndSendErrorResponseAsync(notImplementedException, 
+                    notImplementedException.Message, httpContext, HttpStatusCode.BadRequest);
             }
 
             catch (SqlException sqlException)
             {
-                var message = _stringLocalizer["SqlErrorMessage"].Value;
-                await HandleExceptionAsync(httpContext, sqlException,
-                    HttpStatusCode.InternalServerError, message);
-            }
-
-            catch (InflowNotImplementedException notImplementedException)
-            {
-                var localizableStringName = notImplementedException.LocalizableStringName;
-                var localizableString = _stringLocalizer[localizableStringName].Value;
-                var notImplementedValue = notImplementedException.NotImplementedValue;
-
-                var message = string.Format(localizableString, notImplementedValue);
-
-                await HandleExceptionAsync(httpContext, notImplementedException,
-                    HttpStatusCode.InternalServerError, message);
+                var clientMessage = _stringLocalizer["SqlError"];
+                await LogExceptionAndSendErrorResponseAsync(sqlException, clientMessage,
+                    httpContext, HttpStatusCode.InternalServerError);
             }
 
             catch (Exception exception)
             {
-                var message = _stringLocalizer["UnknownError"].Value;
-                await HandleExceptionAsync(httpContext, exception,
-                    HttpStatusCode.InternalServerError, message);
+                var clientMessage = _stringLocalizer["AnUnexpectedErrorHasOccurred"];
+                await LogExceptionAndSendErrorResponseAsync(exception, clientMessage,
+                    httpContext, HttpStatusCode.InternalServerError);
             }
         }
 
-        private async Task HandleExceptionAsync(HttpContext httpContext, Exception exception, 
-            HttpStatusCode httpStatusCode, string message)
+        private async Task LogExceptionAndSendErrorResponseAsync(Exception exception, string clientMessage, 
+            HttpContext httpContext, HttpStatusCode httpStatusCode)
         {
-            LogException(exception, message);
-            await SendErrorResponseAsync(httpContext, httpStatusCode, message);
+            _logger.LogError(exception.ToString());
+            await SendErrorResponseAsync(httpContext, httpStatusCode, clientMessage);
         }
 
-        private async Task SendErrorResponseAsync(HttpContext httpContext, HttpStatusCode httpStatusCode, string message)
+        private async Task SendErrorResponseAsync(HttpContext httpContext, 
+            HttpStatusCode httpStatusCode, string message)
         {
-            _stringBuilder.Clear();
-
-            var seeMoreInLogsMessage = _stringLocalizer["SeeMoreInLogs"].Value;
-            message = _stringBuilder
-                .Append(message)
-                .Append(seeMoreInLogsMessage)
-                .ToString();
-
             var error = new Error
             {
                 Message = message
             };
 
-            _stringBuilder.Clear();
-
             var httpResponse = httpContext.Response;
-            var httpStatusCodeInt = (int)httpStatusCode;
 
             httpResponse.ContentType = "application/json";
-            httpResponse.StatusCode = httpStatusCodeInt;
+            httpResponse.StatusCode = (int)httpStatusCode;
 
             await httpResponse.WriteAsJsonAsync(error);
-        }
-
-        private void LogException(Exception exception, string message)
-        {
-            _stringBuilder.Clear();
-
-            var exceptionMessage = exception.ToString();
-            var logMessage = _stringBuilder
-                .Append(message)
-                .Append('\n')
-                .Append(exceptionMessage)
-                .ToString();
-
-            _logger.LogError(logMessage);
-
-            _stringBuilder.Clear();
         }
     }
 }

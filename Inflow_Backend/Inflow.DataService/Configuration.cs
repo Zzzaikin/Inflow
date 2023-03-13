@@ -1,6 +1,4 @@
-﻿using Inflow.Common;
-using Inflow.Common.Database;
-using System.Globalization;
+﻿using System.Globalization;
 
 namespace Inflow.DataService
 {
@@ -8,7 +6,7 @@ namespace Inflow.DataService
     {
         public ConnectionStrings ConnectionStrings { get; set; }
 
-        public int MaxSelectedRecords { get; set; }
+        public int MaxSelectedRecordsCount { get; set; }
 
         public string SqlCompilerName { get; set; }
 
@@ -27,7 +25,5 @@ namespace Inflow.DataService
                 }
             }
         }
-
-        public Options DbOptions => ConfigurationUtilities.GetDbOptions(SqlCompilerName, ConnectionStrings.DbConnectionString);
     }
 }

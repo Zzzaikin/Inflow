@@ -1,6 +1,6 @@
 ﻿using Inflow.Common;
 
-namespace Inflow.DataService.DTO.DataRequestBodyItems
+namespace Inflow.Data.DTO.DataRequestBodyItems
 {
     public class Filter
     {
@@ -18,6 +18,7 @@ namespace Inflow.DataService.DTO.DataRequestBodyItems
             {
                 return _column;
             }
+
             set
             {
                 Argument.NotNullOrEmpty(value, nameof(Column));

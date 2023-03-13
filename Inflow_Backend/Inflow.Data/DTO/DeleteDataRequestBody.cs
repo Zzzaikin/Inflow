@@ -1,6 +1,6 @@
-﻿using Inflow.DataService.DTO.DataRequestBodyItems;
+﻿using Inflow.Data.DTO.DataRequestBodyItems;
 
-namespace Inflow.DataService.DTO
+namespace Inflow.Data.DTO
 {
     public class DeleteDataRequestBody
     {

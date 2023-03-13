@@ -117,31 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ArgumentErrorMessage" xml:space="preserve">
-    <value>Parameter [{0}] must be specified.</value>
+  <data name="AnUnexpectedErrorHasOccurred" xml:space="preserve">
+    <value>An unexpected error has occurred.</value>
   </data>
-  <data name="ComparisonTypeNotImpemented" xml:space="preserve">
-    <value>Comparison type [{0}] is not implemented.</value>
-  </data>
-  <data name="ConditionalOperatorNotImplemented" xml:space="preserve">
-    <value>Conditional operator [{0}] is not implemented.</value>
-  </data>
-  <data name="JoinTypeNotImplemented" xml:space="preserve">
-    <value>Join type between tables [{0}] is not implemented.</value>
-  </data>
-  <data name="OrderModeNotImplemented" xml:space="preserve">
-    <value>Order [{0}] is not implemented.</value>
-  </data>
-  <data name="SeeMoreInLogs" xml:space="preserve">
-    <value> See more in logs.</value>
-  </data>
-  <data name="SqlCompilerNotImplemented" xml:space="preserve">
-    <value>Sql compiler [{0}] not implemented.</value>
-  </data>
-  <data name="SqlErrorMessage" xml:space="preserve">
-    <value>Error occured while sending request to database.</value>
-  </data>
-  <data name="UnknownError" xml:space="preserve">
-    <value>An unknown error occurred.</value>
+  <data name="SqlError" xml:space="preserve">
+    <value>An error occurred while accessing the database.</value>
   </data>
 </root>

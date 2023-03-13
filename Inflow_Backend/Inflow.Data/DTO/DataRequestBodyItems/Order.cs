@@ -1,4 +1,4 @@
-﻿namespace Inflow.DataService.DTO.DataRequestBodyItems
+﻿namespace Inflow.Data.DTO.DataRequestBodyItems
 {
     public class Order
     {

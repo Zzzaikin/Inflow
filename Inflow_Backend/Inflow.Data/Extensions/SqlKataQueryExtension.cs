@@ -1,13 +1,12 @@
-﻿using SqlKata;
-using Inflow.DataService.DTO.DataRequestBodyItems;
-using InflowJoin = Inflow.DataService.DTO.DataRequestBodyItems.Join;
-using InflowNotImplementedException = Inflow.Common.Exceptions.NotImplementedException;
+﻿using SqlKataQuery = SqlKata.Query;
+using Inflow.Data.DTO.DataRequestBodyItems;
+using InflowJoin = Inflow.Data.DTO.DataRequestBodyItems.Join;
 
-namespace Inflow.DataService.Extensions
+namespace Inflow.Data.Extensions
 {
     public static class SqlKataQueryExtension
     {
-        public static Query Join(this Query query, IEnumerable<InflowJoin> joins)
+        public static SqlKataQuery Join(this SqlKataQuery query, IEnumerable<InflowJoin> joins)
         {
             if (joins == null)
             {
@@ -41,18 +40,15 @@ namespace Inflow.DataService.Extensions
                         break;
 
                     default:
-                        var joinTypeType = joinType.GetType();
-                        var joinTypeTypeName = joinTypeType.Name;
-                        var exceptionMessage = GetEnumExceptionMessage(joinTypeType, (int)joinType);
-
-                        throw new InflowNotImplementedException(joinTypeTypeName, "JoinTypeNotImplemented", exceptionMessage);
+                        var exceptionMessage = string.Format(Resources.JoinTypeNotImplemented, joinType);
+                        throw new NotImplementedException(exceptionMessage);
                 }
             }
 
             return query;
         }
 
-        public static Query Where(this Query query, IEnumerable<FiltersGroups> filtersGroups)
+        public static SqlKataQuery Where(this SqlKataQuery query, IEnumerable<FiltersGroups> filtersGroups)
         {
             if (filtersGroups == null)
             {
@@ -68,7 +64,7 @@ namespace Inflow.DataService.Extensions
             return query;
         }
 
-        public static Query OrderBy(this Query query, Order order)
+        public static SqlKataQuery OrderBy(this SqlKataQuery query, Order order)
         {
             if (order == null)
             {
@@ -88,17 +84,14 @@ namespace Inflow.DataService.Extensions
                     break;
 
                 default:
-                    var orderModeType = orderMode.GetType();
-                    var orderModeTypeName = orderModeType.Name;
-                    var exceptionMessage = GetEnumExceptionMessage(orderModeType, (int)orderMode);
-
-                    throw new InflowNotImplementedException(orderModeTypeName, "OrderModeNotImplemented", exceptionMessage);
+                    var exceptionMessage = string.Format(Resources.OrderModeNotImplemented, orderMode);
+                    throw new NotImplementedException(exceptionMessage);
             }
 
             return query;
         }
 
-        private static void SetOrConditionalOperatorIfExists(Query query, ConditionalOperator conditionalOperator)
+        private static void SetOrConditionalOperatorIfExists(SqlKataQuery query, ConditionalOperator conditionalOperator)
         {
             /* Sqlkata allows to add only Or instruction. If do not call Or() it will be And instruction by default.
              * Therefore field ConditionalOperator can by null and it's mean that ConditionalOperator will be And.
@@ -110,25 +103,16 @@ namespace Inflow.DataService.Extensions
 
             else if
             (
-                (conditionalOperator != ConditionalOperator.Or)
-                && (conditionalOperator != ConditionalOperator.And)
+                (conditionalOperator != ConditionalOperator.And)
+                && (conditionalOperator != ConditionalOperator.Or)
             )
             {
-                var conditionalOperatorType = conditionalOperator.GetType();
-                var conditionalOperatorTypeName = conditionalOperatorType.Name;
-                var exceptionMessage = GetEnumExceptionMessage(conditionalOperatorType, (int)conditionalOperator);
-
-                throw new InflowNotImplementedException(conditionalOperatorTypeName, "ConditionalOperatorNotImplemented", exceptionMessage);
+                var exceptionMessage = string.Format(Resources.ConditionalOperatorNotImplemented, conditionalOperator);
+                throw new NotImplementedException(exceptionMessage);
             }
         }
 
-        private static string GetEnumExceptionMessage(Type type, int value)
-        {
-            // Add localizable string.
-            return $"Enum {type.FullName} is not implement constant such as {value}";
-        }
-
-        private static Query SetFiltersFromGroup(Query query, IEnumerable<Filter> filters)
+        private static SqlKataQuery SetFiltersFromGroup(SqlKataQuery query, IEnumerable<Filter> filters)
         {
             if (filters == null)
             {
@@ -168,11 +152,8 @@ namespace Inflow.DataService.Extensions
                         break;
 
                     default:
-                        var comparisonTypeType = comparisonType.GetType();
-                        var comparisonTypeTypeName = comparisonTypeType.Name;
-                        var exceptionMessage = GetEnumExceptionMessage(comparisonTypeType, (int)comparisonType);
-
-                        throw new InflowNotImplementedException(comparisonTypeTypeName, "ComparisonTypeNotImpemented", exceptionMessage);
+                        var exceptionMessage = string.Format(Resources.ComparisonTypeNotImpemented, comparisonType);
+                        throw new NotImplementedException(exceptionMessage);
                 }
             }
 

@@ -1,6 +1,6 @@
 ﻿using Inflow.Common;
 
-namespace Inflow.DataService.DTO
+namespace Inflow.Data.DTO
 {
     public class BaseDataRequestBody
     {

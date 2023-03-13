@@ -1,4 +1,4 @@
-﻿using Inflow.DataService.DTO;
+﻿using Inflow.Data.DTO;
 
 namespace Inflow.DataService
 {
