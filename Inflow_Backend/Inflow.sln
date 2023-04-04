@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Inflow.DataService", "Inflo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Inflow.Common", "Inflow.Common\Inflow.Common.csproj", "{6B7CB1F6-5A5A-4FE6-A553-DB20779C7B3B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inflow.Data", "Inflow.Data\Inflow.Data.csproj", "{055501BC-3350-4B93-8714-6C2EB9946B2F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Inflow.Data", "Inflow.Data\Inflow.Data.csproj", "{055501BC-3350-4B93-8714-6C2EB9946B2F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

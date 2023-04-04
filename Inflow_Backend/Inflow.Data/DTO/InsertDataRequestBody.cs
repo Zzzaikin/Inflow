@@ -2,6 +2,6 @@
 {
     public class InsertDataRequestBody : BaseDataRequestBody
     {
-        public IEnumerable<string>? ColumnNames { get; set; }
+        public IEnumerable<Dictionary<string, string>> ColumnValuePairs { get; set; }
     }
 }

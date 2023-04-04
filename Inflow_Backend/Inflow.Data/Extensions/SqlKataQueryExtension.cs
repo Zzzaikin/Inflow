@@ -1,4 +1,6 @@
-﻿using SqlKataQuery = SqlKata.Query;
+﻿using SqlKata.Execution;
+using SqlKataQuery = SqlKata.Query;
+using Inflow.Common;
 using Inflow.Data.DTO.DataRequestBodyItems;
 using InflowJoin = Inflow.Data.DTO.DataRequestBodyItems.Join;
 
@@ -6,6 +8,24 @@ namespace Inflow.Data.Extensions
 {
     public static class SqlKataQueryExtension
     {
+        public static async Task<IEnumerable<object>> InsertManyGetIdsAsync<T>(this SqlKataQuery query,
+            IEnumerable<Dictionary<string, string>> insertingColumnValuePairs)
+        {
+            Argument.NotNull(insertingColumnValuePairs, nameof(insertingColumnValuePairs));
+            var insertedIds = new List<object>();
+
+            foreach (var insertingColumnValuePair in insertingColumnValuePairs)
+            {
+                var prepearedInsertingColumnValuePair =
+                    insertingColumnValuePair.ToDictionary(pair => pair.Key, pair => (object)pair.Value);
+
+                var insertedId = await query.InsertGetIdAsync<object>(prepearedInsertingColumnValuePair);
+                insertedIds.Add(insertedId);
+            }
+
+            return insertedIds;
+        }
+
         public static SqlKataQuery Join(this SqlKataQuery query, IEnumerable<InflowJoin> joins)
         {
             if (joins == null)

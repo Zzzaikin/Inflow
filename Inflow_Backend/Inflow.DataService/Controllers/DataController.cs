@@ -23,29 +23,29 @@ namespace Inflow.DataService.Controllers
         [HttpPost("Delete")]
         public async Task<IActionResult> Delete(DeleteDataRequestBody deleteDataRequestBody)
         {
-            var affectedRows = await _query.Delete(deleteDataRequestBody);
-            return Ok(affectedRows);
+            var afectedRowsCount = await _query.DeleteAsync(deleteDataRequestBody);
+            return Ok(afectedRowsCount);
         }
 
         [HttpPost("Insert")]
         public async Task<IActionResult> Insert(InsertDataRequestBody insertDataRequestBody)
         {
-            var affectedRows = await _query.Insert(insertDataRequestBody);
-            return Ok(affectedRows);
+            var insertedRecordIds = await _query.InsertAsync(insertDataRequestBody);
+            return Ok(insertedRecordIds);
         }
 
         [HttpPost("Select")]
         public async Task<IActionResult> Select([FromBody] SelectDataRequestBody selectDataRequestBody)
         {
-            var records = await _query.Select(selectDataRequestBody);
+            var records = await _query.SelectAsync(selectDataRequestBody);
             return Ok(records);
         }
 
         [HttpPost("Update")]
         public async Task<IActionResult> Update(UpdateDataRequestBody updateDataRequestBody)
         {
-            var affectedRows = await _query.Update(updateDataRequestBody);
-            return Ok(affectedRows);
+            var afectedRowsCount = await _query.UpdateAsync(updateDataRequestBody);
+            return Ok(afectedRowsCount);
         }
     }
 }

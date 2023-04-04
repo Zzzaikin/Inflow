@@ -4,12 +4,12 @@ namespace Inflow.Data
 {
     internal interface IQueriable
     {
-        Task<int> Delete(DeleteDataRequestBody deleteDataRequestBody);
+        Task<int> DeleteAsync(DeleteDataRequestBody deleteDataRequestBody);
 
-        Task<int> Insert(InsertDataRequestBody insertDataRequestBody);
+        Task<IEnumerable<object>> InsertAsync(InsertDataRequestBody insertDataRequestBody);
 
-        Task<int> Update(UpdateDataRequestBody updateDataRequestBody);
+        Task<int> UpdateAsync(UpdateDataRequestBody updateDataRequestBody);
 
-        Task<IEnumerable<dynamic>> Select(SelectDataRequestBody selectDataRequestBody);
+        Task<IEnumerable<dynamic>> SelectAsync(SelectDataRequestBody selectDataRequestBody);
     }
 }
