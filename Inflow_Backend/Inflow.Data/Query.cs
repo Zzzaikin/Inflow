@@ -27,14 +27,18 @@ namespace Inflow.Data
 
         public async Task<int> DeleteAsync(DeleteDataRequestBody deleteDataRequestBody)
         {
-            throw new NotImplementedException();
+            var affectedRecordCount = await _database.Query(deleteDataRequestBody.EntityName)
+                .Where(filtersGroups: deleteDataRequestBody.FiltersGroups)
+                .DeleteAsync();
+
+            return affectedRecordCount;
         }
 
         
         public async Task<IEnumerable<string>> InsertAsync(InsertDataRequestBody insertDataRequestBody)
         {
             var insertedRecordsIds = await _database.Query(insertDataRequestBody.EntityName)
-                .InsertManyGetIdsAsync(insertDataRequestBody.ColumnValuePairs);
+                .InsertManyGetIdsAsync(insertDataRequestBody.InsertingData);
 
             return insertedRecordsIds;
         }
@@ -54,7 +58,11 @@ namespace Inflow.Data
 
         public async Task<int> UpdateAsync(UpdateDataRequestBody updateDataRequestBody)
         {
-            throw new NotImplementedException();
+            var affectedRecordsCount = await _database.Query(updateDataRequestBody.EntityName)
+                .Where(filtersGroups: updateDataRequestBody.FiltersGroups)
+                .UpdateAsync(updateDataRequestBody.UpdatingData);
+
+            return affectedRecordsCount;
         }
     }
 }

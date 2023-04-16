@@ -2,8 +2,8 @@
 
 namespace Inflow.Data.DTO
 {
-    public class DeleteDataRequestBody
+    public class DeleteDataRequestBody : BaseDataRequestBody
     {
-        public IEnumerable<Filter>? Filters { get; set; }
+        public IEnumerable<FiltersGroups>? FiltersGroups { get; set; }
     }
 }

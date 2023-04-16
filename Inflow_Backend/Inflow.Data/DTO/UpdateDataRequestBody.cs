@@ -4,8 +4,8 @@ namespace Inflow.Data.DTO
 {
     public class UpdateDataRequestBody : BaseDataRequestBody
     {
-        public IEnumerable<string> ColumnNames { get; set; }
+        public Dictionary<string, string> UpdatingData { get; set; }
 
-        public IEnumerable<Filter>? Filters { get; set; }
+        public IEnumerable<FiltersGroups>? FiltersGroups { get; set; }
     }
 }

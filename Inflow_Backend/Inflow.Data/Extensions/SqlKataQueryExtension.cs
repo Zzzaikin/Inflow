@@ -8,28 +8,39 @@ namespace Inflow.Data.Extensions
 {
     public static class SqlKataQueryExtension
     {
-        public static async Task<IEnumerable<string>> InsertManyGetIdsAsync(this SqlKataQuery query,
-            IEnumerable<Dictionary<string, string>> insertingColumnValuePairs)
+        public static async Task<int> UpdateAsync(this SqlKataQuery query,
+            Dictionary<string, string> updatingData)
         {
-            Argument.IsNotNull(insertingColumnValuePairs, nameof(insertingColumnValuePairs));
+            Argument.IsNotNull(updatingData, nameof(updatingData));
+
+            var updatingDataWithUpcastedValue =
+                updatingData.ToDictionary(pair => pair.Key, pair => (object)pair.Value);
+
+            return await query.UpdateAsync(updatingDataWithUpcastedValue);
+        }
+
+        public static async Task<IEnumerable<string>> InsertManyGetIdsAsync(this SqlKataQuery query,
+            IEnumerable<Dictionary<string, string>> insertingData)
+        {
+            Argument.IsNotNull(insertingData, nameof(insertingData));
             var insertedIds = new List<string>();
 
-            foreach (var insertingColumnValuePair in insertingColumnValuePairs)
+            foreach (var insertingDataItem in insertingData)
             {
-                var prepearedInsertingColumnValuePair =
-                    insertingColumnValuePair.ToDictionary(pair => pair.Key, pair => (object)pair.Value);
+                var insertingDataItemWithUpcastedValue =
+                    insertingDataItem.ToDictionary(pair => pair.Key, pair => (object)pair.Value);
 
                 string recordId;
 
-                if (!prepearedInsertingColumnValuePair.ContainsKey("Id"))
+                if (!insertingDataItemWithUpcastedValue.ContainsKey("Id"))
                 {
                     recordId = Guid.NewGuid().ToString();
-                    prepearedInsertingColumnValuePair.Add("Id", recordId);
+                    insertingDataItemWithUpcastedValue.Add("Id", recordId);
                 }
 
-                recordId = prepearedInsertingColumnValuePair["Id"].ToString();
+                recordId = insertingDataItemWithUpcastedValue["Id"].ToString();
 
-                await query.InsertAsync(prepearedInsertingColumnValuePair);
+                await query.InsertAsync(insertingDataItemWithUpcastedValue);
                 insertedIds.Add(recordId);
             }
 
