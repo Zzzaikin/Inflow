@@ -8,19 +8,29 @@ namespace Inflow.Data.Extensions
 {
     public static class SqlKataQueryExtension
     {
-        public static async Task<IEnumerable<object>> InsertManyGetIdsAsync<T>(this SqlKataQuery query,
+        public static async Task<IEnumerable<string>> InsertManyGetIdsAsync(this SqlKataQuery query,
             IEnumerable<Dictionary<string, string>> insertingColumnValuePairs)
         {
-            Argument.NotNull(insertingColumnValuePairs, nameof(insertingColumnValuePairs));
-            var insertedIds = new List<object>();
+            Argument.IsNotNull(insertingColumnValuePairs, nameof(insertingColumnValuePairs));
+            var insertedIds = new List<string>();
 
             foreach (var insertingColumnValuePair in insertingColumnValuePairs)
             {
                 var prepearedInsertingColumnValuePair =
                     insertingColumnValuePair.ToDictionary(pair => pair.Key, pair => (object)pair.Value);
 
-                var insertedId = await query.InsertGetIdAsync<object>(prepearedInsertingColumnValuePair);
-                insertedIds.Add(insertedId);
+                string recordId;
+
+                if (!prepearedInsertingColumnValuePair.ContainsKey("Id"))
+                {
+                    recordId = Guid.NewGuid().ToString();
+                    prepearedInsertingColumnValuePair.Add("Id", recordId);
+                }
+
+                recordId = prepearedInsertingColumnValuePair["Id"].ToString();
+
+                await query.InsertAsync(prepearedInsertingColumnValuePair);
+                insertedIds.Add(recordId);
             }
 
             return insertedIds;

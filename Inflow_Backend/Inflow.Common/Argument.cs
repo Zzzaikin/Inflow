@@ -2,7 +2,7 @@
 {
     public static class Argument
     {
-        public static void NotNullOrEmpty(string argumentValue, string argumentName)
+        public static void IsNotNullOrEmpty(string argumentValue, string argumentName)
         {//TODO: Test thread culter info.
             if (string.IsNullOrEmpty(argumentValue))
             {
@@ -11,7 +11,7 @@
             }
         }
 
-        public static void NotNull(object argumentValue, string argumentName)
+        public static void IsNotNull(object argumentValue, string argumentName)
         {
             if (argumentValue == null)
             {

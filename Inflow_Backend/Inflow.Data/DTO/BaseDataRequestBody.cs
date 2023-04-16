@@ -15,7 +15,7 @@ namespace Inflow.Data.DTO
 
             set
             {
-                Argument.NotNullOrEmpty(value, nameof(EntityName));
+                Argument.IsNotNullOrEmpty(value, nameof(EntityName));
                 _entityName = value;
             }
         }

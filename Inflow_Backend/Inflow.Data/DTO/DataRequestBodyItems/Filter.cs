@@ -21,7 +21,7 @@ namespace Inflow.Data.DTO.DataRequestBodyItems
 
             set
             {
-                Argument.NotNullOrEmpty(value, nameof(Column));
+                Argument.IsNotNullOrEmpty(value, nameof(Column));
                 _column = value;
             }
         }
@@ -40,7 +40,7 @@ namespace Inflow.Data.DTO.DataRequestBodyItems
 
             set
             {
-                Argument.NotNull(value, nameof(Value));
+                Argument.IsNotNull(value, nameof(Value));
                 _value = value;
             }
         }

@@ -17,8 +17,8 @@ namespace Inflow.Data
 
         public Query(Compiler compiler, DbConnection connection)
         {
-            Argument.NotNull(compiler, nameof(compiler));
-            Argument.NotNull(connection, nameof(connection));
+            Argument.IsNotNull(compiler, nameof(compiler));
+            Argument.IsNotNull(connection, nameof(connection));
 
             _sqlCompiler = compiler;
             _dbConnection = connection;
@@ -31,10 +31,10 @@ namespace Inflow.Data
         }
 
         
-        public async Task<IEnumerable<object>> InsertAsync(InsertDataRequestBody insertDataRequestBody)
+        public async Task<IEnumerable<string>> InsertAsync(InsertDataRequestBody insertDataRequestBody)
         {
             var insertedRecordsIds = await _database.Query(insertDataRequestBody.EntityName)
-                .InsertManyGetIdsAsync<object>(insertDataRequestBody.ColumnValuePairs);
+                .InsertManyGetIdsAsync(insertDataRequestBody.ColumnValuePairs);
 
             return insertedRecordsIds;
         }

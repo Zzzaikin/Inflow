@@ -12,7 +12,7 @@ namespace Inflow.DataService.Extensions
         public static IServiceCollection AddSingetonSqlCompiler(this IServiceCollection services, 
             string sqlCompilerName) 
         {
-            Argument.NotNullOrEmpty(sqlCompilerName, nameof(sqlCompilerName));
+            Argument.IsNotNullOrEmpty(sqlCompilerName, nameof(sqlCompilerName));
 
             switch (sqlCompilerName)
             {
@@ -34,7 +34,7 @@ namespace Inflow.DataService.Extensions
         public static IServiceCollection AddSingletonSqlConnection(this IServiceCollection services, 
             string sqlCompilerName)
         {
-            Argument.NotNullOrEmpty(sqlCompilerName, nameof(sqlCompilerName));
+            Argument.IsNotNullOrEmpty(sqlCompilerName, nameof(sqlCompilerName));
 
             switch (sqlCompilerName)
             {

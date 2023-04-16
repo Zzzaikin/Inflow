@@ -6,7 +6,7 @@ namespace Inflow.Data
     {
         Task<int> DeleteAsync(DeleteDataRequestBody deleteDataRequestBody);
 
-        Task<IEnumerable<object>> InsertAsync(InsertDataRequestBody insertDataRequestBody);
+        Task<IEnumerable<string>> InsertAsync(InsertDataRequestBody insertDataRequestBody);
 
         Task<int> UpdateAsync(UpdateDataRequestBody updateDataRequestBody);
 

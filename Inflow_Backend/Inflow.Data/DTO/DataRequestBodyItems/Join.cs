@@ -19,7 +19,7 @@ namespace Inflow.Data.DTO.DataRequestBodyItems
 
             set
             {
-                Argument.NotNullOrEmpty(value, nameof(RightColumnName));
+                Argument.IsNotNullOrEmpty(value, nameof(RightColumnName));
                 _rightColumnName = value;
             }
         }
@@ -33,7 +33,7 @@ namespace Inflow.Data.DTO.DataRequestBodyItems
 
             set
             {
-                Argument.NotNullOrEmpty(value, nameof(LeftColumnName));
+                Argument.IsNotNullOrEmpty(value, nameof(LeftColumnName));
                 _leftColumnName = value;
             }
         }
@@ -47,7 +47,7 @@ namespace Inflow.Data.DTO.DataRequestBodyItems
 
             set
             {
-                Argument.NotNullOrEmpty(value, nameof(JoinedEntityName));
+                Argument.IsNotNullOrEmpty(value, nameof(JoinedEntityName));
                 _joinedEntityName = value;
             }
         }
