@@ -165,31 +165,37 @@ namespace Inflow.Data.Extensions
                 SetOrConditionalOperatorIfExists(query, filter.ConditionalOperator);
 
                 var comparisonType = filter.ComparisonType;
+                var filterColumn = filter.Column;
+                var filterValue = filter.Value;
 
                 switch (filter.ComparisonType)
                 {
                     case ComparisonType.Equal:
-                        query.Where(filter.Column, "=", filter.Value);
+                        Argument.IsNotNull(filterValue, nameof(filterValue));
+                        query.Where(filterColumn, "=", filterValue);
                         break;
 
                     case ComparisonType.NotEqual:
-                        query.WhereNot(filter.Column, "=", filter.Value);
+                        Argument.IsNotNull(filterValue, nameof(filterValue));
+                        query.WhereNot(filterColumn, "=", filterValue);
                         break;
 
                     case ComparisonType.IsNull:
-                        query.WhereNull(filter.Column);
+                        query.WhereNull(filterColumn);
                         break;
 
                     case ComparisonType.NotNull:
-                        query.WhereNotNull(filter.Column);
+                        query.WhereNotNull(filterColumn);
                         break;
 
                     case ComparisonType.More:
-                        query.Where(filter.Column, ">", filter.Value);
+                        Argument.IsNotNull(filterValue, nameof(filterValue));
+                        query.Where(filterColumn, ">", filterValue);
                         break;
 
                     case ComparisonType.Less:
-                        query.Where(filter.Column, "<", filter.Value);
+                        Argument.IsNotNull(filterValue, nameof(filterValue));
+                        query.Where(filterColumn, "<", filterValue);
                         break;
 
                     default:

@@ -6,8 +6,6 @@ namespace Inflow.Data.DTO.DataRequestBodyItems
     {
         private string _column;
 
-        private string _value;
-
         public ConditionalOperator ConditionalOperator { get; set; }
 
         public ComparisonType ComparisonType { get; set; }
@@ -31,18 +29,6 @@ namespace Inflow.Data.DTO.DataRequestBodyItems
         /// Sqlkata convert to N'5' (example number) and db server grabs it. Therefore if int value comes empty, its 
         /// will be a empty string. Tested by electricity.
         /// </summary>
-        public string Value
-        {
-            get
-            {
-                return _value;
-            }
-
-            set
-            {
-                Argument.IsNotNull(value, nameof(Value));
-                _value = value;
-            }
-        }
+        public string? Value { get; set; }
     }
 }

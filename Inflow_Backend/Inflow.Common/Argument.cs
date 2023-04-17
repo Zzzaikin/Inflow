@@ -16,7 +16,7 @@
             if (argumentValue == null)
             {
                 var exceprionMessage = string.Format(GlobalResource.ArgumentCanNotBeNull, argumentName);
-                throw new ArgumentNullException(exceprionMessage);
+                throw new ArgumentException(exceprionMessage);
             }
         }
     }
