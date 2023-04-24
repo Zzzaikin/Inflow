@@ -21,4 +21,4 @@ RUN dotnet publish "Inflow.DataService.csproj" -c Release -o /app/publish /p:Use
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "Inflow.DataService.dll"]
+ENTRYPOINT ["dotnet", "Inflow.DataService.dll"] 
