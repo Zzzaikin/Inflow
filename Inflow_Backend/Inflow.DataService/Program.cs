@@ -17,9 +17,9 @@ namespace Inflow.DataService
             builder.Services.Configure<Configuration>(builder.Configuration);
             builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
 
-            var sqlCompilerName = builder.Configuration.GetValue<string>("SqlCompilerName");
-            builder.Services.AddSingetonSqlCompiler(sqlCompilerName);
-            builder.Services.AddSingletonSqlConnection(sqlCompilerName);
+            var sqlOptionsName = builder.Configuration.GetValue<string>("SqlOptionsName");
+            builder.Services.AddSingletonSqlOptions(sqlOptionsName);
+            builder.Services.AddSingletonSqlSchema(sqlOptionsName);
 
             var app = builder.Build();
 

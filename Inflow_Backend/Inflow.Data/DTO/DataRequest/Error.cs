@@ -1,4 +1,4 @@
-﻿namespace Inflow.Data.DTO
+﻿namespace Inflow.Data.DTO.DataRequest
 {
     public class Error
     {

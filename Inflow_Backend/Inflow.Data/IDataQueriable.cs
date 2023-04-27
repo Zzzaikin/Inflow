@@ -1,8 +1,8 @@
-﻿using Inflow.Data.DTO;
+﻿using Inflow.Data.DTO.DataRequest;
 
 namespace Inflow.Data
 {
-    internal interface IQueriable
+    internal interface IDataQueriable
     {
         Task<int> DeleteAsync(DeleteDataRequestBody deleteDataRequestBody);
 

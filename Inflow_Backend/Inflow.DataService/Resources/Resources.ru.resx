@@ -117,10 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="SqlCompilerNotImplemented" xml:space="preserve">
-    <value>Sql-компилятор {0} не реализован.</value>
+  <data name="SqlOptionsAreNotImplemented" xml:space="preserve">
+    <value>SQL-опции {0} не реализованы.</value>
   </data>
-  <data name="SqlConnectionForThisSqlCompilerNotImplemented" xml:space="preserve">
-    <value>Sql-соединение не реализовано для Sql-компилятора - {0}.</value>
+  <data name="SqlSchemaIsNotImplementedForSqlOptions" xml:space="preserve">
+    <value>SQL-схема не реализована для SQL-опций {0}.</value>
   </data>
 </root>

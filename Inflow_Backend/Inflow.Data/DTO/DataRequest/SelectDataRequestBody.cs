@@ -1,6 +1,6 @@
-﻿using Inflow.Data.DTO.DataRequestBodyItems;
+﻿using Inflow.Data.DTO.DataRequest.BodyItems;
 
-namespace Inflow.Data.DTO
+namespace Inflow.Data.DTO.DataRequest
 {
     public class SelectDataRequestBody : BaseDataRequestBody
     {

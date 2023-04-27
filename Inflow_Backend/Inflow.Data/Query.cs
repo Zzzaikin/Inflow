@@ -1,43 +1,26 @@
-﻿using System.Data.Common;
-using SqlKata.Compilers;
-using SqlKata.Execution;
-using Inflow.Common;
-using Inflow.Data.DTO;
+﻿using SqlKata.Execution;
+using Inflow.Data.Options;
 using Inflow.Data.Extensions;
+using Inflow.Data.DTO.DataRequest;
 
 namespace Inflow.Data
 {
-    public class Query : IQueriable
+    public class Query : BaseQuery, IDataQueriable
     {
-        private readonly Compiler _sqlCompiler;
-
-        private readonly DbConnection _dbConnection;
-
-        private readonly QueryFactory _database;
-
-        public Query(Compiler compiler, DbConnection connection)
-        {
-            Argument.IsNotNull(compiler, nameof(compiler));
-            Argument.IsNotNull(connection, nameof(connection));
-
-            _sqlCompiler = compiler;
-            _dbConnection = connection;
-            _database = new QueryFactory(_dbConnection, _sqlCompiler);
-        }
+        public Query(BaseSqlOptions sqlOptions) : base(sqlOptions) { }
 
         public async Task<int> DeleteAsync(DeleteDataRequestBody deleteDataRequestBody)
         {
-            var affectedRecordCount = await _database.Query(deleteDataRequestBody.EntityName)
+            var affectedRecordCount = await Database.Query(deleteDataRequestBody.EntityName)
                 .Where(filtersGroups: deleteDataRequestBody.FiltersGroups)
                 .DeleteAsync();
 
             return affectedRecordCount;
         }
 
-        
         public async Task<IEnumerable<string>> InsertAsync(InsertDataRequestBody insertDataRequestBody)
         {
-            var insertedRecordsIds = await _database.Query(insertDataRequestBody.EntityName)
+            var insertedRecordsIds = await Database.Query(insertDataRequestBody.EntityName)
                 .InsertManyGetIdsAsync(insertDataRequestBody.InsertingData);
 
             return insertedRecordsIds;
@@ -45,7 +28,7 @@ namespace Inflow.Data
 
         public async Task<IEnumerable<dynamic>> SelectAsync(SelectDataRequestBody selectDataRequestBody)
         {
-            var records = await _database.Query()
+            var records = await Database.Query()
                 .Select(selectDataRequestBody.ColumnNames.ToArray())
                 .From(selectDataRequestBody.EntityName)
                 .Join(joins: selectDataRequestBody.Joins)
@@ -58,7 +41,7 @@ namespace Inflow.Data
 
         public async Task<int> UpdateAsync(UpdateDataRequestBody updateDataRequestBody)
         {
-            var affectedRecordsCount = await _database.Query(updateDataRequestBody.EntityName)
+            var affectedRecordsCount = await Database.Query(updateDataRequestBody.EntityName)
                 .Where(filtersGroups: updateDataRequestBody.FiltersGroups)
                 .UpdateAsync(updateDataRequestBody.UpdatingData);
 

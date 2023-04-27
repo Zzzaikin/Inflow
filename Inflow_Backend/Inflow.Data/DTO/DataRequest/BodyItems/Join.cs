@@ -1,6 +1,6 @@
 ﻿using Inflow.Common;
 
-namespace Inflow.Data.DTO.DataRequestBodyItems
+namespace Inflow.Data.DTO.DataRequest.BodyItems
 {
     public class Join
     {

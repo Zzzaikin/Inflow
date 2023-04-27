@@ -61,20 +61,20 @@ namespace Inflow.DataService {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sql-compiler {0} not implemented..
+        ///   Looks up a localized string similar to SQL-options {0} are not implemented..
         /// </summary>
-        internal static string SqlCompilerNotImplemented {
+        internal static string SqlOptionsAreNotImplemented {
             get {
-                return ResourceManager.GetString("SqlCompilerNotImplemented", resourceCulture);
+                return ResourceManager.GetString("SqlOptionsAreNotImplemented", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sql-connection for sql compiler - {0} not implemented..
+        ///   Looks up a localized string similar to SQL-schema is not implemented for SQL-options {0}..
         /// </summary>
-        internal static string SqlConnectionForThisSqlCompilerNotImplemented {
+        internal static string SqlSchemaIsNotImplementedForSqlOptions {
             get {
-                return ResourceManager.GetString("SqlConnectionForThisSqlCompilerNotImplemented", resourceCulture);
+                return ResourceManager.GetString("SqlSchemaIsNotImplementedForSqlOptions", resourceCulture);
             }
         }
     }

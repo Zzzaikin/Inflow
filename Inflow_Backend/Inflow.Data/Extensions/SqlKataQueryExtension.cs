@@ -1,8 +1,8 @@
 ﻿using SqlKata.Execution;
 using SqlKataQuery = SqlKata.Query;
 using Inflow.Common;
-using Inflow.Data.DTO.DataRequestBodyItems;
-using InflowJoin = Inflow.Data.DTO.DataRequestBodyItems.Join;
+using InflowJoin = Inflow.Data.DTO.DataRequest.BodyItems.Join;
+using Inflow.Data.DTO.DataRequest.BodyItems;
 
 namespace Inflow.Data.Extensions
 {

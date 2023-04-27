@@ -1,4 +1,4 @@
-﻿namespace Inflow.Data.DTO.DataRequestBodyItems
+﻿namespace Inflow.Data.DTO.DataRequest.BodyItems
 {
     public enum JoinType
     {

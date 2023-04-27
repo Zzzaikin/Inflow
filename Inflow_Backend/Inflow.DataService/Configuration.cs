@@ -8,7 +8,7 @@ namespace Inflow.DataService
 
         public int MaxSelectedRecordsCount { get; set; }
 
-        public string SqlCompilerName { get; set; }
+        public string SqlOptionsName { get; set; }
 
         public string Culture { get; set; }
 

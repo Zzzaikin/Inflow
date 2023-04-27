@@ -1,8 +1,7 @@
-﻿using System.Data.Common;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using SqlKata.Compilers;
 using Inflow.Data.DTO;
+using Inflow.Data.Options;
 using InflowDataQuery = Inflow.Data.Query;
 
 namespace Inflow.DataService.Controllers
@@ -13,11 +12,10 @@ namespace Inflow.DataService.Controllers
     {
         private readonly InflowDataQuery _query;
 
-        public DataController(IOptions<Configuration> configuration, Compiler compiler, 
-            DbConnection dbConnection)
+        public DataController(IOptions<Configuration> configuration, BaseSqlOptions sqlOptions)
         {
-            dbConnection.ConnectionString = configuration.Value.ConnectionStrings.DbConnectionString;
-            _query = new InflowDataQuery(compiler, dbConnection);
+            sqlOptions.DbConnection.ConnectionString = configuration.Value.ConnectionStrings.DbConnectionString;
+            _query = new InflowDataQuery(sqlOptions);
         }
 
         [HttpPost("Delete")]
