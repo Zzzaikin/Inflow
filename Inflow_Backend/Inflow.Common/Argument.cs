@@ -3,11 +3,11 @@
     public static class Argument
     {
         public static void IsNotNullOrEmpty(string argumentValue, string argumentName)
-        {//TODO: Test thread culter info.
+        {//TODO: Test thread culture info.
             if (string.IsNullOrEmpty(argumentValue))
             {
-                var exceprionMessage = string.Format(GlobalResource.ArgumentCanNotBeNullOrEmpty, argumentName);
-                throw new ArgumentException(exceprionMessage);
+                var exceptionMessage = string.Format(GlobalResource.ArgumentCanNotBeNullOrEmpty, argumentName);
+                throw new ArgumentException(exceptionMessage);
             }
         }
 
@@ -15,8 +15,8 @@
         {
             if (argumentValue == null)
             {
-                var exceprionMessage = string.Format(GlobalResource.ArgumentCanNotBeNull, argumentName);
-                throw new ArgumentException(exceprionMessage);
+                var exceptionMessage = string.Format(GlobalResource.ArgumentCanNotBeNull, argumentName);
+                throw new ArgumentException(exceptionMessage);
             }
         }
     }

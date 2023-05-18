@@ -5,7 +5,7 @@ using Inflow.Data.DTO.DataRequest;
 
 namespace Inflow.Data
 {
-    public class Query : BaseQuery, IDataQueriable
+    public class Query : BaseQuery, IDataQueryable
     {
         public Query(BaseSqlOptions sqlOptions) : base(sqlOptions) { }
 

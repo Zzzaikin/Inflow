@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using Inflow.Data.DTO;
+using Inflow.Data.DTO.DataRequest;
 using Inflow.Data.Options;
 using InflowDataQuery = Inflow.Data.Query;
 

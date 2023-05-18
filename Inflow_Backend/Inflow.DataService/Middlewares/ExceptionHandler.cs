@@ -1,7 +1,7 @@
 ﻿using System.Net;
 using System.Data.SqlClient;
 using Microsoft.Extensions.Localization;
-using Inflow.Data.DTO;
+using Inflow.Data.DTO.DataRequest;
 
 namespace Inflow.DataService.Middlewares
 {
