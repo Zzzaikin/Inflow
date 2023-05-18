@@ -1,0 +1,39 @@
+.nav-component {
+  width: 270px;
+  height: 100vh;
+  background-color: #232F61;
+  font-size: 50px;
+  font-family: 'Vogue Bold', serif;
+  color: #DEECF5;
+  border-radius: 0 25px 25px 0;
+}
+
+.inflow-label-container {
+  text-align: center;
+  padding-top: 10px;
+  border-bottom: 3px solid #7c8996;
+}
+
+.inflow-label {
+  padding-bottom: 10px;
+}
+
+.nav-items-container {
+  height: 87%;
+}
+
+.nav-controls {
+  height: 100%;
+  display: flex;
+}
+
+.user-profile {
+  height: 40px;
+  width: 40px;
+  background-image: url("../../resources/user-profille.svg");
+}
+
+@font-face {
+  font-family: 'Vogue Bold';
+  src: url('../../public/fonts/Vogue Bold/Vogue Bold.ttf');
+}
