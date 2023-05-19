@@ -1,6 +1,6 @@
 import React from 'react';
 import Layout from './Layout'
-import Nav from './Nav'
+import Nav from './Nav/Nav'
 import  './App.scss'
 
 function App() {

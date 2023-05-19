@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import './Nav.scss'
-import {LAYOUT_REF} from "./Layout";
+import {LAYOUT_REF} from "../Layout";
 
 function Nav() {
     const navComponentClassNameText : string = "nav-component";
