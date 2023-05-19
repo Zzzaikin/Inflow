@@ -2,7 +2,7 @@
 
 .layout {
   height: 97vh;
-  width: 84vw;
+  width: 84.4vw;
   margin: 15px 15px 15px 15px;
   background-color: #e1e6ea;
   border-radius: 15px 15px 15px 15px;
@@ -15,5 +15,5 @@
 
 .nav-collapsed {
   @include navShift();
-  width: 94.9vw;
+  width: 95.06vw;
 }
