@@ -3,6 +3,7 @@ import './Nav.scss'
 import {LAYOUT_REF} from "../Layout";
 import NavItem from './NavItem';
 import INavItemConfig from "./INavItemConfig";
+import * as DataService from '../../services/DataService';
 
 function Nav() {
     const navComponentClassNameText : string = "nav-component";
@@ -19,51 +20,34 @@ function Nav() {
     let navItemsConfig: INavItemConfig[];
 
     useEffect(() => {
-        const sectionSchemas = getSectionSchemas();
+        getSectionConfigs()
+            .then((result) => {
+                navItemsConfig = result.map((sectionConfig: INavItemConfig) => {
+                    return {
+                        ...sectionConfig,
+                        selected: false
+                    }
+                });
 
-        navItemsConfig = sectionSchemas.map((sectionSchema) => {
-            return {
-                ...sectionSchema,
-                selected: false
-            }
-        });
+                navItemsConfig[0].selected = true;
 
-        navItemsConfig[0].selected = true;
-
-        let navItemsFromSectionSchemas = getNavItemsFromConfig(navItemsConfig);
-        setNavItems(navItemsFromSectionSchemas);
+                let navItemsFromSectionConfigs = getNavItemsFromConfig(navItemsConfig);
+                setNavItems(navItemsFromSectionConfigs);
+            });
     }, []);
 
-    function getSectionSchemas() {
-        const mockResponse = [
-            {
-                id: "1",
-                name: "Nav item #1",
-                image: "img"
-            },
-            {
-                id: "2",
-                name: "Nav item #2",
-                image: "img"
-            },
-            {
-                id: "3",
-                name: "Nav item #3",
-                image: "img"
-            },
-            {
-                id: "4",
-                name: "Nav item #4",
-                image: "img"
-            },
-            {
-                id: "5",
-                name: "Nav item #5",
-                image: "img"
-            }
-        ];
+    async function getSectionConfigs() {
+        const selectRequestConfig = {
+            columnNames: [
+                "id",
+                "name",
+                "image"
+            ],
+            entityName: "DisplayedSections"
+        };
 
-        return mockResponse;
+        const sectionConfigs = await DataService.selectAsync(selectRequestConfig);
+        return sectionConfigs;
     }
 
     function getNavItemsFromConfig(config: INavItemConfig[]) : JSX.Element[] {
@@ -73,6 +57,7 @@ function Nav() {
                     id={`${configItem.id}`}
                     className={configItem.selected ? "nav-item selected" : "nav-item"}
                     onClick={(e: any) => onNavItemClick(e)}
+                    style={{backgroundImage: configItem.image}}
                 >
                     <NavItem text={configItem.name} image={configItem.image} />
                 </div>
