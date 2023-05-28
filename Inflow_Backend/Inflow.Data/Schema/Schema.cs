@@ -1,10 +1,10 @@
-﻿using Inflow.Data.Options;
+﻿using SqlKata.Execution;
 
 namespace Inflow.Data.Schema
 {
-    public class MySqlSchema : BaseQuery, ISchema
+    public class Schema : BaseQuery, ISchema
     {
-        public MySqlSchema(BaseSqlOptions sqlOptions) : base(sqlOptions) { }
+        public Schema(QueryFactory databaseProvider) : base(databaseProvider) { }
 
         public Task GetAsync(string name)
         {

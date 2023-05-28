@@ -5,11 +5,11 @@ namespace Inflow.Data
 {
     public abstract class BaseQuery
     {
-        public QueryFactory Database { get; private set; }
+        protected QueryFactory DatabaseProvider { get; private set; }
 
-        protected BaseQuery(BaseSqlOptions sqlOptions)
+        protected BaseQuery(QueryFactory databaseProvider)
         {
-            Database = new QueryFactory(sqlOptions.DbConnection, sqlOptions.Compiler);
+            DatabaseProvider = databaseProvider;
         }
     }
 }

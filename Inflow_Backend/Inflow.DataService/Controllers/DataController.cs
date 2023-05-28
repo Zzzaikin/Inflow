@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
+using Inflow.Data;
 using Inflow.Data.DTO.DataRequest;
-using Inflow.Data.Options;
-using InflowDataQuery = Inflow.Data.Query;
 
 namespace Inflow.DataService.Controllers
 {
@@ -10,19 +8,18 @@ namespace Inflow.DataService.Controllers
     [Route("[controller]")]
     public class DataController : ControllerBase
     {
-        private readonly InflowDataQuery _query;
+        private readonly IDataQueryable _query;
 
-        public DataController(IOptions<Configuration> configuration, BaseSqlOptions sqlOptions)
+        public DataController(IDataQueryable query)
         {
-            sqlOptions.DbConnection.ConnectionString = configuration.Value.ConnectionStrings.DbConnectionString;
-            _query = new InflowDataQuery(sqlOptions);
+            _query = query;
         }
 
         [HttpPost("Delete")]
         public async Task<IActionResult> Delete(DeleteDataRequestBody deleteDataRequestBody)
         {
-            var afectedRowsCount = await _query.DeleteAsync(deleteDataRequestBody);
-            return Ok(afectedRowsCount);
+            var affectedRowsCount = await _query.DeleteAsync(deleteDataRequestBody);
+            return Ok(affectedRowsCount);
         }
 
         [HttpPost("Insert")]
@@ -42,8 +39,8 @@ namespace Inflow.DataService.Controllers
         [HttpPost("Update")]
         public async Task<IActionResult> Update(UpdateDataRequestBody updateDataRequestBody)
         {
-            var afectedRowsCount = await _query.UpdateAsync(updateDataRequestBody);
-            return Ok(afectedRowsCount);
+            var affectedRowsCount = await _query.UpdateAsync(updateDataRequestBody);
+            return Ok(affectedRowsCount);
         }
     }
 }

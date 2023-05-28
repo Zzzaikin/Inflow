@@ -2,7 +2,7 @@
 
 namespace Inflow.Data
 {
-    internal interface IDataQueryable
+    public interface IDataQueryable
     {
         Task<int> DeleteAsync(DeleteDataRequestBody deleteDataRequestBody);
 

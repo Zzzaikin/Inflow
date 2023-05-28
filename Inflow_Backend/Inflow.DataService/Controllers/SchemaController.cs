@@ -21,5 +21,11 @@ namespace Inflow.DataService.Controllers
             await _schema.GetAsync(name);
             return Ok();
         }
+
+        [HttpGet("GetEntitiesDisplayedInNav")]
+        public async Task<IActionResult> GetEntitiesDisplayedInNav()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

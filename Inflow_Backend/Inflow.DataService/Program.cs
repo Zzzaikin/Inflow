@@ -9,17 +9,24 @@ namespace Inflow.DataService
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            var services = builder.Services;
 
-            builder.Services.AddControllers();
-            builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+            services.AddControllers();
+            services.AddEndpointsApiExplorer();
+            services.AddSwaggerGen();
 
-            builder.Services.Configure<Configuration>(builder.Configuration);
-            builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
+            services.Configure<Configuration>(builder.Configuration);
+            services.AddLocalization(options => options.ResourcesPath = "Resources");
 
-            var sqlOptionsName = builder.Configuration.GetValue<string>("SqlOptionsName");
-            builder.Services.AddSingletonSqlOptions(sqlOptionsName);
-            builder.Services.AddSingletonSqlSchema(sqlOptionsName);
+            var builderConfiguration = builder.Configuration;
+            var sqlOptionsName = builderConfiguration.GetValue<string>("SqlOptionsName");
+            var dbConnectionString = builderConfiguration.GetConnectionString("DbConnectionString");
+            
+            services.AddSingletonSqlOptions(sqlOptionsName, dbConnectionString);
+            services.AddSingletonDatabaseProvider();
+            services.AddSingletonInflowDataQuery();
+            services.AddSingletonSqlSchema();
+            
 
             var app = builder.Build();
 
@@ -29,9 +36,9 @@ namespace Inflow.DataService
                 app.UseSwaggerUI();
             }
 
-            var configuration = app.Configuration.Get<Configuration>();
-            var cultureName = configuration.Culture;
-            var supportedCultures = configuration.SupportedCultures.ToList();
+            var appConfiguration = app.Configuration.Get<Configuration>();
+            var cultureName = appConfiguration.Culture;
+            var supportedCultures = appConfiguration.SupportedCultures.ToList();
 
             app.UseRequestLocalization(new RequestLocalizationOptions
             {
