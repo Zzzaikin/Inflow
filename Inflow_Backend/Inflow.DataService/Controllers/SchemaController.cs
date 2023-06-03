@@ -22,11 +22,10 @@ namespace Inflow.DataService.Controllers
             return Ok();
         }
 
-        [HttpGet("GetSectionsDisplayedInNav")]
-        public async Task<IActionResult> GetSectionsDisplayedInNav(int limit, int offset)
+        [HttpGet("GetEntitiesDisplayedInNav")]
+        public async Task<IActionResult> GetEntitiesDisplayedInNav()
         {
-            var sectionsDisplayedInNav = await _schema.GetSectionsDisplayedInNavAsync(limit, offset);
-            return Ok(sectionsDisplayedInNav);
+            throw new NotImplementedException();
         }
     }
 }

@@ -19,16 +19,5 @@
                 throw new ArgumentException(exceptionMessage);
             }
         }
-
-        public static void IsNotLessThanZero(int argumentValue, string argumentName)
-        {
-            if (argumentValue < 0)
-            {
-                var exceptionMessage = 
-                    string.Format(GlobalResource.ArgumentCanNotBeLessThanZero, argumentName, argumentValue);
-                
-                throw new ArgumentException(exceptionMessage);
-            }
-        }
     }
 }

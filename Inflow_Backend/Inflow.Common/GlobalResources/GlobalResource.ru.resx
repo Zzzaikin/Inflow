@@ -123,7 +123,4 @@
   <data name="ArgumentCanNotBeNullOrEmpty" xml:space="preserve">
     <value>Аргумент {0} не может быть null или пустым.</value>
   </data>
-  <data name="ArgumentCanNotBeLessThanZero" xml:space="preserve">
-    <value>Значение аргумента {0} не может быть ниже нуля. Значение аргумента - {1}.</value>
-  </data>
 </root>
