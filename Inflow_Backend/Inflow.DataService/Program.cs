@@ -1,6 +1,8 @@
+using System.Text.Json;
 using Microsoft.AspNetCore.Localization;
 using Inflow.DataService.Middlewares;
 using Inflow.DataService.Extensions;
+using Inflow.Data.Options;
 
 namespace Inflow.DataService
 {
@@ -12,6 +14,7 @@ namespace Inflow.DataService
             var services = builder.Services;
 
             services.AddControllers();
+
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
 
@@ -25,8 +28,7 @@ namespace Inflow.DataService
             services.AddSingletonSqlOptions(sqlOptionsName, dbConnectionString);
             services.AddSingletonDatabaseProvider();
             services.AddSingletonInflowDataQuery();
-            services.AddSingletonSqlSchema();
-            
+            services.AddSingletonSqlSchema();            
 
             var app = builder.Build();
 
@@ -59,6 +61,9 @@ namespace Inflow.DataService
             app.UseHttpsRedirection();
             app.UseAuthorization();
             app.MapControllers();
+
+            var sqlOptions = app.Services.GetService<BaseSqlOptions>();
+            sqlOptions.OpenConnectionIfClosed();
 
             app.Run();
         }

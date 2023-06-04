@@ -1,4 +1,5 @@
-﻿using System.Data.Common;
+﻿using System.Data;
+using System.Data.Common;
 using SqlKata.Compilers;
 using Inflow.Common;
 
@@ -17,6 +18,27 @@ namespace Inflow.Data.Options
 
             Compiler = compiler;
             DbConnection = dbConnection;
+        }
+
+        ~BaseSqlOptions() 
+        {
+            CloseConnectionIfOpened();
+        }
+
+        public void OpenConnectionIfClosed()
+        {
+            if (DbConnection.State == ConnectionState.Closed)
+            {
+                DbConnection.Open();
+            }
+        }
+
+        private void CloseConnectionIfOpened()
+        {
+            if (DbConnection.State == ConnectionState.Open)
+            {
+                DbConnection.Close();
+            }
         }
     }
 }

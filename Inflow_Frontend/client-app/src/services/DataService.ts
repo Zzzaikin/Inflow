@@ -25,6 +25,5 @@ async function fetchDataAsync(dataRequest: object, endpoint: string): Promise<an
         body: JSON.stringify(dataRequest)
     });
 
-    let jsonResponse =  await response.json();
-    return await JSON.parse(jsonResponse);
+    return await response.json();
 }

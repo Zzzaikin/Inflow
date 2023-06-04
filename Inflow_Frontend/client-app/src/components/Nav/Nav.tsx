@@ -29,7 +29,7 @@ function Nav() {
                     }
                 });
 
-                navItemsConfig[0].selected = true;
+                navItemsConfig[0].Selected = true;
 
                 let navItemsFromSectionConfigs = getNavItemsFromConfig(navItemsConfig);
                 setNavItems(navItemsFromSectionConfigs);
@@ -54,12 +54,12 @@ function Nav() {
         const navItems: JSX.Element[] = config.map((configItem: INavItemConfig) => {
             return(
                 <div
-                    id={`${configItem.id}`}
-                    className={configItem.selected ? "nav-item selected" : "nav-item"}
+                    key={`${configItem.Id}`}
+                    id={`${configItem.Id}`}
+                    className={configItem.Selected ? "nav-item selected" : "nav-item"}
                     onClick={(e: any) => onNavItemClick(e)}
-                    style={{backgroundImage: configItem.image}}
                 >
-                    <NavItem text={configItem.name} image={configItem.image} />
+                    <NavItem text={configItem.Name} image={configItem.Image} />
                 </div>
             );
         });
@@ -69,19 +69,19 @@ function Nav() {
 
     function onNavItemClick(e: any) {
         navItemsConfig.forEach((navItemConfig: INavItemConfig, i: number, arr: any[]) => {
-            if (navItemConfig.selected) {
-                arr[i].selected = false
+            if (navItemConfig.Selected) {
+                arr[i].Selected = false
             }
 
             let target = e.target;
 
-            if (navItemConfig.id === target.id) {
-                arr[i].selected = true;
+            if (navItemConfig.Id === target.id) {
+                arr[i].Selected = true;
                 return;
             }
 
-            if (navItemConfig.id === target.parentElement.id) {
-                arr[i].selected = true;
+            if (navItemConfig.Id === target.parentElement.id) {
+                arr[i].Selected = true;
             }
         });
 
