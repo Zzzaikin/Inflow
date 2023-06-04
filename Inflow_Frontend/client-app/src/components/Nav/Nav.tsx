@@ -39,11 +39,11 @@ function Nav() {
     async function getSectionConfigs() {
         const selectRequestConfig = {
             columnNames: [
-                "id",
-                "name",
-                "image"
+                "Id",
+                "Name",
+                "Image"
             ],
-            entityName: "DisplayedSections"
+            entityName: "SectionsDisplayedInNav"
         };
 
         const sectionConfigs = await DataService.selectAsync(selectRequestConfig);

@@ -1,2 +1,2 @@
-export const API_HOST: string = "localhost:8089"
+export const API_HOST: string = "localhost:5222"
 export const HTTP: string = "http";

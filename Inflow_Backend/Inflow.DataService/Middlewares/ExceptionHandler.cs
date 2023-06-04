@@ -35,9 +35,9 @@ namespace Inflow.DataService.Middlewares
                 await _next(httpContext);
             }
 
-            catch (ArgumentException argumentEception)
+            catch (ArgumentException argumentException)
             {
-                await LogExceptionAndSendErrorResponseAsync(argumentEception, argumentEception.Message,
+                await LogExceptionAndSendErrorResponseAsync(argumentException, argumentException.Message,
                     httpContext, HttpStatusCode.BadRequest);
             }
 

@@ -46,6 +46,13 @@ namespace Inflow.DataService
                 SupportedCultures = supportedCultures,
                 SupportedUICultures = supportedCultures
             });
+            
+            app.UseCors(corsPolicyBuilder =>
+            {
+                corsPolicyBuilder.WithOrigins(appConfiguration.OriginForWhichAllowedAnyMethodAndAnyHeaderInCorsPolicy)
+                    .AllowAnyMethod()
+                    .AllowAnyHeader();
+            });
 
             app.UseStaticFiles();
             app.UseMiddleware<ExceptionHandler>();

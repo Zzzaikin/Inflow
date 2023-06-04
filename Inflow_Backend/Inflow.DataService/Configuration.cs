@@ -25,5 +25,7 @@ namespace Inflow.DataService
                 }
             }
         }
+        
+        public string OriginForWhichAllowedAnyMethodAndAnyHeaderInCorsPolicy { get; set; }
     }
 }
