@@ -1,13 +1,17 @@
 import React from 'react';
-import Layout from './Layout'
-import Nav from './Nav/Nav'
-import  './App.scss'
+import Layout from './Layout';
+import Nav from './Nav/Nav';
+import {BrowserRouter} from "react-router-dom";
+import  './App.scss';
+
 
 function App() {
   return (
       <div className="app-container">
         <Nav/>
-        <Layout/>
+        <BrowserRouter>
+            <Layout/>
+        </BrowserRouter>
       </div>
   );
 }

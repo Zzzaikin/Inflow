@@ -1,9 +1,11 @@
 import React, {JSX, useEffect, useState} from 'react';
-import './Nav.scss'
-import {LAYOUT_REF} from "../Layout";
-import NavItem from './NavItem';
+
 import INavItemConfig from "./INavItemConfig";
-import * as DataService from '../../services/DataService';
+import {LAYOUT_REF} from "../Layout";
+import {useInflowAppSelector} from "../../store/Hooks";
+import NavItem from './NavItem';
+
+import './Nav.scss'
 
 function Nav() {
     const navComponentClassNameText : string = "nav-component";
@@ -12,15 +14,16 @@ function Nav() {
     const [toggleButtonText, setToggleButtonText] = useState("<");
     const [navComponentClassName, setNavComponentClassName] = useState("nav-component");
 
-    /**
-     * TODO: Add redux usage.
-     */
     const [navItems, setNavItems] = useState<JSX.Element[]>([]);
+
+    const sectionsDisplayedInNavConfigPromise: Promise<[]> = useInflowAppSelector((state) => {
+        return state.SectionsDisplayedInNavPromise.promiseValue;
+    });
 
     let navItemsConfig: INavItemConfig[];
 
     useEffect(() => {
-        getSectionConfigs()
+        sectionsDisplayedInNavConfigPromise
             .then((result) => {
                 navItemsConfig = result.map((sectionConfig: INavItemConfig) => {
                     return {
@@ -35,20 +38,6 @@ function Nav() {
                 setNavItems(navItemsFromSectionConfigs);
             });
     }, []);
-
-    async function getSectionConfigs() {
-        const selectRequestConfig = {
-            columnNames: [
-                "Id",
-                "Name",
-                "Image"
-            ],
-            entityName: "SectionsDisplayedInNav"
-        };
-
-        const sectionConfigs = await DataService.selectAsync(selectRequestConfig);
-        return sectionConfigs;
-    }
 
     function getNavItemsFromConfig(config: INavItemConfig[]) : JSX.Element[] {
         const navItems: JSX.Element[] = config.map((configItem: INavItemConfig) => {
