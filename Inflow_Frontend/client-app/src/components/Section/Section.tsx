@@ -1,8 +1,8 @@
 import React from 'react';
 
-function Section() {
+function Section(props: {testText: string}) {
     return(
-        <div>asd</div>
+        <div>{props.testText}</div>
     );
 }
 

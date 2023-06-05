@@ -8,10 +8,10 @@ import  './App.scss';
 function App() {
   return (
       <div className="app-container">
-        <Nav/>
-        <BrowserRouter>
-            <Layout/>
-        </BrowserRouter>
+          <BrowserRouter>
+              <Nav/>
+              <Layout/>
+          </BrowserRouter>
       </div>
   );
 }

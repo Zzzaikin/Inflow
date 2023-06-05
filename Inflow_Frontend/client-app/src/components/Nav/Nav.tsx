@@ -1,4 +1,5 @@
 import React, {JSX, useEffect, useState} from 'react';
+import { Navigate } from 'react-router-dom';
 
 import INavItemConfig from "./INavItemConfig";
 import {LAYOUT_REF} from "../Layout";
@@ -13,6 +14,7 @@ function Nav() {
 
     const [toggleButtonText, setToggleButtonText] = useState("<");
     const [navComponentClassName, setNavComponentClassName] = useState("nav-component");
+    const [navigate, setNavigate] = useState<JSX.Element>();
 
     const [navItems, setNavItems] = useState<JSX.Element[]>([]);
 
@@ -20,12 +22,12 @@ function Nav() {
         return state.SectionsDisplayedInNavPromise.promiseValue;
     });
 
-    let navItemsConfig: INavItemConfig[];
+    let navItemsConfig: INavItemConfig[] = [];
 
     useEffect(() => {
         sectionsDisplayedInNavConfigPromise
-            .then((result) => {
-                navItemsConfig = result.map((sectionConfig: INavItemConfig) => {
+            .then((sectionsDisplayedInNavConfig) => {
+                navItemsConfig = sectionsDisplayedInNavConfig.map((sectionConfig: INavItemConfig) => {
                     return {
                         ...sectionConfig,
                         selected: false
@@ -57,12 +59,29 @@ function Nav() {
     }
 
     function onNavItemClick(e: any) {
+        updateNavItemsClickedState(e);
+        navigateToSection(e);
+    }
+
+    function navigateToSection(e: any) {
+        const navItemConfigItemHasFoundById = navItemsConfig.find((navItemConfigItem) => {
+            const target = e.target;
+            const navItemConfigItemId = navItemConfigItem.Id;
+
+            return (navItemConfigItemId === target.id) || (navItemConfigItemId === target.parentElement.id);
+        });
+
+        const navigateComponent = <Navigate to={`/${navItemConfigItemHasFoundById?.Name}`}/>;
+        setNavigate(navigateComponent);
+    }
+
+    function updateNavItemsClickedState(e: any) {
         navItemsConfig.forEach((navItemConfig: INavItemConfig, i: number, arr: any[]) => {
             if (navItemConfig.Selected) {
                 arr[i].Selected = false
             }
 
-            let target = e.target;
+            const target = e.target;
 
             if (navItemConfig.Id === target.id) {
                 arr[i].Selected = true;
@@ -74,11 +93,12 @@ function Nav() {
             }
         });
 
-        let updatedNavItems = getNavItemsFromConfig(navItemsConfig);
+        const updatedNavItems = getNavItemsFromConfig(navItemsConfig);
 
         /*
          * TODO: Очень плохая реализация. Перерисовываются все NavItem'ы, что в будущем аукнется, но сейчам нет времени.
          * Необходимо перерисовывать только выбранный NavItem и выбранный ранее.
+         * UPD: возможно стоит попробовать в redux состояние navitem'ов запихнуть.
          */
         setNavItems(updatedNavItems);
     }
@@ -112,6 +132,7 @@ function Nav() {
                     onClick={() => onToggleButtonClick()}
                 >{toggleButtonText}</div>
             </div>
+            {navigate}
         </div>
     );
 }

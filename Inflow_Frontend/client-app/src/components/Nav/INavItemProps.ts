@@ -2,7 +2,7 @@ interface INavItemProps {
     text: string,
 
     /**
-     * base64 or svg.
+     * base64 + svg.
      */
     image: string
 }
