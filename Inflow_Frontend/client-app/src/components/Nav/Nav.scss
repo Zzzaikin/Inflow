@@ -35,14 +35,14 @@
 
 .nav-controls {
   display: flex;
-  margin: 0 10px 0 15px;
+  margin: 0 10px 0 0;
 }
 
 .user-profile {
-  height: 40px;
-  width: 40px;
+  height: 60px;
+  width: 60px;
   background-image: url("../../../resources/user-profille.svg");
-  margin-top: 6px;
+  margin-top: -6px;
   cursor: pointer;
 }
 

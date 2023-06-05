@@ -1,16 +1,1 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
-<!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
-<svg height="40px" width="40px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
-	 viewBox="0 0 512 512" xml:space="preserve">
-<g>
-	<path style="fill:#C7E5F4;" d="M256,238.428c-65.735,0-119.214-53.48-119.214-119.214S190.265,0,256,0
-		c65.734,0,119.214,53.48,119.214,119.214S321.734,238.428,256,238.428z"/>
-	<path style="fill:#C7E5F4;" d="M414.229,512H97.771c-10.687,0-19.351-8.664-19.351-19.351v-61.375
-		c0-97.918,79.662-177.58,177.58-177.58s177.58,79.662,177.58,177.58v61.375C433.58,503.336,424.916,512,414.229,512z"/>
-</g>
-<g>
-	<path style="fill:#60BFE1;" d="M256,0v238.428c65.734,0,119.214-53.48,119.214-119.214C375.214,53.478,321.734,0,256,0z"/>
-	<path style="fill:#60BFE1;" d="M256,253.693V512h158.229c10.687,0,19.351-8.664,19.351-19.351v-61.375
-		C433.58,333.355,353.918,253.693,256,253.693z"/>
-</g>
-</svg>
+<svg width="64px" height="64px" viewBox="-4.86 -4.86 27.72 27.72" xmlns="http://www.w3.org/2000/svg" fill="#DEECF5" stroke="#DEECF5" stroke-width="0.072"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill="#DEECF5" d="M16 0H2a2.006 2.006 0 0 0-2 2v14a2.006 2.006 0 0 0 2 2h14a2.006 2.006 0 0 0 2-2V2a2.006 2.006 0 0 0-2-2zm0 16h-2v-.86A3.154 3.154 0 0 0 10.85 12h-.53a4.167 4.167 0 0 1 .85-2 4.007 4.007 0 0 0 .77-2.41C11.94 5.61 10.62 4 9 4S6.06 5.61 6.06 7.59A4.007 4.007 0 0 0 6.83 10a4.167 4.167 0 0 1 .85 2h-.57A3.126 3.126 0 0 0 4 15.14V16H2V2h14v14z"></path> </g></svg>

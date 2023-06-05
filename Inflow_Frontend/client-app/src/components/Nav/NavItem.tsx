@@ -6,7 +6,7 @@ function NavItem(props: INavItemProps) {
     return(
         <>
             <div className="nav-item-text">{props.text}</div>
-            <div className="nav-item-image" style={{backgroundImage: `url('data:image/svg+xml;utf8,${props.image}')`}}></div>
+            <div className="nav-item-image" style={{backgroundImage: `url('data:image/svg+xml;base64,${props.image}')`}}></div>
         </>
     );
 }

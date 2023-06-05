@@ -31,7 +31,7 @@ function Nav() {
 
                 navItemsConfig[0].Selected = true;
 
-                let navItemsFromSectionConfigs = getNavItemsFromConfig(navItemsConfig);
+                const navItemsFromSectionConfigs = getNavItemsFromConfig(navItemsConfig);
                 setNavItems(navItemsFromSectionConfigs);
             });
     }, []);
