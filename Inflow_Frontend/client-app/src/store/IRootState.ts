@@ -1,5 +1,5 @@
 interface IRootState {
-    sectionsDisplayedInNav: []
+    sectionsConfig: []
 }
 
 export default IRootState;

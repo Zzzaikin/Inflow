@@ -18,18 +18,20 @@ function Nav() {
 
     const [navItems, setNavItems] = useState<JSX.Element[]>([]);
 
-    const sectionsDisplayedInNavConfigPromise: Promise<[]> = useInflowAppSelector((state) => {
-        return state.SectionsDisplayedInNavPromise.promiseValue;
+    const sectionsConfigPromise: Promise<[]> = useInflowAppSelector((state) => {
+        return state.SectionsConfigPromise.promiseValue;
     });
 
     let navItemsConfig: INavItemConfig[] = [];
 
+    // TODO: Добавить в сторе привязку роутов к отображаемым разделам и к состоянию navitem'ов.
+
     useEffect(() => {
-        sectionsDisplayedInNavConfigPromise
-            .then((sectionsDisplayedInNavConfig) => {
-                navItemsConfig = sectionsDisplayedInNavConfig.map((sectionConfig: INavItemConfig) => {
+        sectionsConfigPromise
+            .then((sectionsConfig) => {
+                navItemsConfig = sectionsConfig.map((sectionsConfigItem: INavItemConfig) => {
                     return {
-                        ...sectionConfig,
+                        ...sectionsConfigItem,
                         selected: false
                     }
                 });

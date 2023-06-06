@@ -1,9 +1,9 @@
 import {configureStore} from "@reduxjs/toolkit";
-import SectionsDisplayedInNavReducer from './slices/SectionsDisplayedInNavSlice';
+import SectionsConfigReducer from './slices/SectionsConfigSlice';
 
 const appStore = configureStore({
     reducer: {
-        SectionsDisplayedInNavPromise: SectionsDisplayedInNavReducer
+        SectionsConfigPromise: SectionsConfigReducer
     }
 });
 

@@ -1,6 +1,5 @@
 import React, {JSX, RefObject, useEffect, useState} from 'react';
 import {useInflowAppSelector} from "../store/Hooks";
-import INavItemConfig from "./Nav/INavItemConfig";
 
 import {Route, Routes} from "react-router-dom";
 import Section from "./Section/Section";
@@ -12,29 +11,31 @@ export const LAYOUT_REF: RefObject<any> = React.createRef();
 function Layout() {
     const [routes, setRoutes] = useState<JSX.Element[]>([]);
 
-    const sectionsDisplayedInNavConfigPromise: Promise<[]> = useInflowAppSelector((state) => {
-        return state.SectionsDisplayedInNavPromise.promiseValue;
+    const sectionsConfigPromise: Promise<[]> = useInflowAppSelector((state) => {
+        return state.SectionsConfigPromise.promiseValue;
     });
 
     useEffect(() => {
-        sectionsDisplayedInNavConfigPromise
-            .then((sectionsDisplayedInNavConfig) => {
-                const routes = getRoutesBySectionDisplayedInNavConfig(sectionsDisplayedInNavConfig);
+        sectionsConfigPromise
+            .then((sectionsConfig: {Name: string}[]) => {
+                const routes = getRoutesBySectionsConfig(sectionsConfig);
                 setRoutes(routes);
             });
     }, []);
 
-    function getRoutesBySectionDisplayedInNavConfig(sectionsDisplayedInNavConfig: []): JSX.Element[] {
-        const routes = sectionsDisplayedInNavConfig.map((sectionsDisplayedInNavConfigItem: INavItemConfig) => {
-            const sectionsDisplayedInNavConfigItemName = sectionsDisplayedInNavConfigItem.Name;
+    function getRoutesBySectionsConfig(sectionsConfig: {Name: string}[]): JSX.Element[] {
+        const routes = sectionsConfig.map((sectionsConfigItem: {Name: string}) => {
+            const sectionsConfigItemName = sectionsConfigItem.Name;
             return <Route
-                        path={sectionsDisplayedInNavConfigItemName}
-                        element={<Section testText={sectionsDisplayedInNavConfigItemName} />}
+                        path={sectionsConfigItemName}
+                        element={<Section testText={sectionsConfigItemName} />}
                    />
             });
 
-        // TODO: Добавить явный тип sectionsDisplayedInNavConfig здесь, выше по методу и в сторе.
-        // TODO: Добавить роут для "/", который ведёт на первый в списке навигационного меню раздел.
+        const rootRoute =
+            <Route path="/" element={<Section testText={sectionsConfig[0].Name} />}/>;
+
+        routes.push(rootRoute);
         return routes;
     }
 
