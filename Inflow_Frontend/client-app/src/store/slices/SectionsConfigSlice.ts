@@ -8,20 +8,20 @@ const initialState = {
     columnNames: [
         "Id",
         "Name",
-        "Image"
+        "SectionImage"
     ],
-    entityName: "SysSection",
+    entityName: "SysEntity",
     joins: [
         {
             joinedEntityName: "INFORMATION_SCHEMA.TABLES",
             rightColumnName: "INFORMATION_SCHEMA.TABLES.TABLE_NAME",
-            leftColumnName: "SysSection.Name",
+            leftColumnName: "SysEntity.Name",
             type: DATA.JOIN_TYPE.INNER
         }
     ],
     order: {
         mode: DATA.ORDER_MODE.ASC,
-        orderColumnName: "SysSection.Name"
+        orderColumnName: "SysEntity.SectionPositionInNavMenu"
     }
 }),
 } as ISectionsConfig;
