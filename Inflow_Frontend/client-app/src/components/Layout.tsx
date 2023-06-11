@@ -17,23 +17,22 @@ function Layout() {
 
     useEffect(() => {
         sectionsConfigPromise
-            .then((sectionsConfig: {Name: string}[]) => {
+            .then((sectionsConfig: {Name: string, LczName: string}[]) => {
                 const routes = getRoutesBySectionsConfig(sectionsConfig);
                 setRoutes(routes);
             });
     }, []);
 
-    function getRoutesBySectionsConfig(sectionsConfig: {Name: string}[]): JSX.Element[] {
-        const routes = sectionsConfig.map((sectionsConfigItem: {Name: string}) => {
-            const sectionsConfigItemName = sectionsConfigItem.Name;
+    function getRoutesBySectionsConfig(sectionsConfig: {Name: string, LczName: string}[]): JSX.Element[] {
+        const routes = sectionsConfig.map((sectionsConfigItem: {Name: string, LczName: string}) => {
             return <Route
-                        path={sectionsConfigItemName}
-                        element={<Section testText={sectionsConfigItemName} />}
+                        path={sectionsConfigItem.Name}
+                        element={<Section testText={sectionsConfigItem.LczName} />}
                    />
             });
 
         const rootRoute =
-            <Route path="/" element={<Section testText={sectionsConfig[0].Name} />}/>;
+            <Route path="/" element={<Section testText={sectionsConfig[0].LczName} />}/>;
 
         routes.push(rootRoute);
         return routes;

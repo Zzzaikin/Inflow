@@ -216,6 +216,7 @@ function Section(props: {testText: string}) {
                         <Button
                             onClick={() => setCreateModalOpen(true)}
                             variant="contained"
+                            color="success"
                         >
                             Добавить
                         </Button>
@@ -261,7 +262,7 @@ export const CreateNewAccountModal = ({
 
     return (
         <Dialog open={open}>
-            <DialogTitle textAlign="center">Create New Account</DialogTitle>
+            <DialogTitle textAlign="center">Добавление</DialogTitle>
             <DialogContent>
                 <form onSubmit={(e) => e.preventDefault()}>
                     <Stack
@@ -285,9 +286,9 @@ export const CreateNewAccountModal = ({
                 </form>
             </DialogContent>
             <DialogActions sx={{ p: '1.25rem' }}>
-                <Button onClick={onClose}>Cancel</Button>
-                <Button color="secondary" onClick={handleSubmit} variant="contained">
-                    Create New Account
+                <Button onClick={onClose}>Отмена</Button>
+                <Button color="success" onClick={handleSubmit} variant="contained">
+                    Создать
                 </Button>
             </DialogActions>
         </Dialog>

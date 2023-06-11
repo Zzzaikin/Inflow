@@ -8,7 +8,8 @@ const initialState = {
     columnNames: [
         "Id",
         "Name",
-        "SectionImage"
+        "SectionImage",
+        "LczName"
     ],
     entityName: "SysEntity",
     joins: [
