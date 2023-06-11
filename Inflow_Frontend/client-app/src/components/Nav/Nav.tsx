@@ -52,7 +52,7 @@ function Nav() {
                     className={configItem.Selected ? "nav-item selected" : "nav-item"}
                     onClick={(e: any) => onNavItemClick(e)}
                 >
-                    <NavItem text={configItem.Name} image={configItem.Image} />
+                    <NavItem text={configItem.Name} image={configItem.SectionImage} />
                 </div>
             );
         });

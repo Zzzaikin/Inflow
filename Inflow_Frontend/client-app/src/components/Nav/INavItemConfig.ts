@@ -1,7 +1,7 @@
 interface INavItemConfig {
     Id: string,
     Name: string,
-    Image: string,
+    SectionImage: string,
     Selected: boolean
 }
 
