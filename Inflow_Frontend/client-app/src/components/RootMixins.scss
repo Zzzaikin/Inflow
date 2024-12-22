@@ -1,8 +1,0 @@
-@mixin transitionDurationForProperty($property, $duration) {
-  transition-property: $property;
-  transition-duration: $duration;
-}
-
-@mixin navShift() {
-  left: -205px;
-}
