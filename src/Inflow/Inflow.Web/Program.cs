@@ -1,4 +1,5 @@
 using Inflow.Web.Components;
+using MudBlazor.Services;
 
 namespace Inflow.Web;
 
@@ -9,9 +10,11 @@ public class Program
         var builder = WebApplication.CreateBuilder(args);
 
         // Add services to the container.
-        builder.Services.AddRazorComponents()
+        var services = builder.Services;
+        services.AddRazorComponents()
             .AddInteractiveServerComponents()
             .AddInteractiveWebAssemblyComponents();
+        services.AddMudServices();
 
         var app = builder.Build();
 

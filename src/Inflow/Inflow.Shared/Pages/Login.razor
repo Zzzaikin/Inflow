@@ -1,0 +1,79 @@
+@using System.Text.RegularExpressions
+
+@page "/Login"
+
+<MudThemeProvider @bind-IsDarkMode="@_isDarkMode" Theme="_theme"/>
+<MudPopoverProvider />
+
+<MudMainContent>
+    <MudContainer MaxWidth="MaxWidth.Medium">
+        <MudGrid 
+            Class="d-flex align-center justify-center "
+            Style="min-height: 85vh">
+            <MudItem xs="12" sm="7">
+                <MudPaper Class="pa-4" Style="min-width: 140px">
+                    <!-- 
+                        The div below is just to push the switch to the right end of the paper.
+                        TODO: I'm not sure that it's best practice.
+                     -->
+                    <div Class="d-flex justify-end">
+                        <div></div>
+                        <MudSwitch @bind-Value="_isDarkMode"
+                                   Color="Color.Primary"
+                                   T="bool"
+                                   Label="Light/Dark"/>
+                    </div>
+                    <MudForm @ref="_form"
+                             @bind-IsValid="@_success"
+                             @bind-Errors="@_errors"
+                             OnEnterPressed="@(() => _form.ValidateAsync())">
+                        <MudTextField T="string" Label="Username" Required="true"
+                                      RequiredError="User name is required!"/>
+                        <MudTextField T="string"
+                                      @bind-Value="@_password"
+                                      Label="Password"
+                                      InputType="InputType.Password"
+                                      Validation="@(new Func<string, IEnumerable<string>>(PasswordStrength))"
+                                      Required="true"
+                                      RequiredError="Password is required!"/>
+                        <MudButton Class="mt-6"
+                            Variant="Variant.Filled"
+                            Color="Color.Primary"
+                            DropShadow="false"
+                            OnClick="@(() => _form.ValidateAsync())">
+                            Login
+                        </MudButton>
+                    </MudForm>
+                </MudPaper>
+            </MudItem>
+        </MudGrid>
+    </MudContainer>
+</MudMainContent>
+
+@code {
+    private readonly MudTheme _theme = new();
+    private bool _isDarkMode;
+    private bool _success;
+    private MudForm _form = null!;
+    private string _password = null!;
+    private string[] _errors = [];
+
+    private static IEnumerable<string> PasswordStrength(string pw)
+    {
+        if (string.IsNullOrWhiteSpace(pw))
+        {
+            yield return "Password is required!";
+            yield break;
+        }
+        if (pw.Length < 8)
+            yield return "Password must be at least of length 8";
+        if (!Regex.IsMatch(pw, @"[A-Z]"))
+            yield return "Password must contain at least one capital letter";
+        if (!Regex.IsMatch(pw, @"[a-z]"))
+            yield return "Password must contain at least one lowercase letter";
+        if (!Regex.IsMatch(pw, @"[0-9]"))
+            yield return "Password must contain at least one digit";
+    }
+
+    private string PasswordMatch(string arg) => _password != arg ? "Passwords don't match" : null;
+}
