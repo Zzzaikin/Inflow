@@ -11,7 +11,7 @@
             Class="d-flex align-center justify-center "
             Style="min-height: 85vh">
             <MudItem xs="12" sm="7">
-                <MudPaper Class="pa-4" Style="min-width: 140px">
+                <MudPaper Class="pb-10 pr-10 pl-10 pt-2" Style="min-width: 140px">
                     <!-- 
                         The div below is just to push the switch to the right end of the paper.
                         TODO: I'm not sure that it's best practice.
@@ -27,20 +27,25 @@
                              @bind-IsValid="@_success"
                              @bind-Errors="@_errors"
                              OnEnterPressed="@(() => _form.ValidateAsync())">
-                        <MudTextField T="string" Label="Username" Required="true"
+                        <MudTextField T="string"
+                                      Class="mt-6"
+                                      Label="Username" 
+                                      Required="true"
                                       RequiredError="User name is required!"/>
                         <MudTextField T="string"
+                                      Class="mt-6"
                                       @bind-Value="@_password"
                                       Label="Password"
                                       InputType="InputType.Password"
                                       Validation="@(new Func<string, IEnumerable<string>>(PasswordStrength))"
                                       Required="true"
                                       RequiredError="Password is required!"/>
-                        <MudButton Class="mt-6"
+                        <MudButton Class="mt-14"
                             Variant="Variant.Filled"
                             Color="Color.Primary"
                             DropShadow="false"
-                            OnClick="@(() => _form.ValidateAsync())">
+                            OnClick="@(() => _form.ValidateAsync())"
+                            Style="height: 45px">
                             Login
                         </MudButton>
                     </MudForm>
@@ -74,6 +79,4 @@
         if (!Regex.IsMatch(pw, @"[0-9]"))
             yield return "Password must contain at least one digit";
     }
-
-    private string PasswordMatch(string arg) => _password != arg ? "Passwords don't match" : null;
 }
