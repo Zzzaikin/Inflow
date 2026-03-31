@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using MudBlazor.Services;
 
 namespace Inflow;
 
@@ -11,10 +12,12 @@ public static class MauiProgram
             .UseMauiApp<App>()
             .ConfigureFonts(fonts => { fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular"); });
 
-        builder.Services.AddMauiBlazorWebView();
+        var services = builder.Services;
+        services.AddMauiBlazorWebView();
+        services.AddMudServices();
 
 #if DEBUG
-        builder.Services.AddBlazorWebViewDeveloperTools();
+        services.AddBlazorWebViewDeveloperTools();
         builder.Logging.AddDebug();
 #endif
 
