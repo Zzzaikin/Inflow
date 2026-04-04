@@ -1,0 +1,34 @@
+@inherits BunitContext
+
+@code {
+    [Fact]
+    public async Task LoginPage_Should_Render_With_ThemeSwitcher_And_LoginForm()
+    {
+        // Arrange
+        Services.AddMudServices();
+        
+        JSInterop.SetupVoid("mudElementRef.addOnBlurEvent", _ => true);
+        JSInterop.SetupVoid("mudKeyInterceptor.connect", _ => true);
+        JSInterop.Setup<int>("mudpopoverHelper.countProviders");
+        JSInterop.SetupVoid("mudThemeProvider.watchDarkMode", _ => true);
+        JSInterop
+            .SetupVoid("mudKeyInterceptor.disconnect", _ => true)
+            .SetVoidResult();
+
+        JSInterop.SetupVoid("mudPopover.dispose").SetVoidResult();
+        
+        var loginPage = Render<Login>();
+
+        // Act
+        var paper = loginPage.FindComponent<MudPaper>();
+        var themeSwitcherExists = paper.HasComponent<MudSwitch<bool>>();
+        var loginFormExists = paper.HasComponent<MudForm>();
+        
+        // Assert
+        paper.Should().NotBeNull();
+        themeSwitcherExists.Should().BeTrue();
+        loginFormExists.Should().BeTrue();
+
+        await Services.DisposeAsync();
+    }
+}

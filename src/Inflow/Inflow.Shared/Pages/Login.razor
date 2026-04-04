@@ -5,9 +5,10 @@
 <MudThemeProvider @bind-IsDarkMode="@_isDarkMode" Theme="_theme"/>
 <MudPopoverProvider />
 
-<MudMainContent>
+<MudMainContent id="login-main-content">
     <MudContainer MaxWidth="MaxWidth.Medium">
         <MudGrid 
+            id="login-grid"
             Class="d-flex align-center justify-center "
             Style="min-height: 85vh">
             <MudItem xs="12" sm="7">
@@ -18,21 +19,26 @@
                      -->
                     <div Class="d-flex justify-end">
                         <div></div>
-                        <MudSwitch @bind-Value="_isDarkMode"
+                        <MudSwitch id="theme-switcher" 
+                                   @bind-Value="_isDarkMode"
                                    Color="Color.Primary"
                                    T="bool"
                                    Label="Light/Dark"/>
                     </div>
-                    <MudForm @ref="_form"
+                    <MudForm 
+                             id="login-form"
+                             @ref="_form"
                              @bind-IsValid="@_success"
                              @bind-Errors="@_errors"
                              OnEnterPressed="@(() => _form.ValidateAsync())">
-                        <MudTextField T="string"
+                        <MudTextField id="username"
+                                      T="string"
                                       Class="mt-6"
                                       Label="Username" 
                                       Required="true"
                                       RequiredError="User name is required!"/>
-                        <MudTextField T="string"
+                        <MudTextField id="password" 
+                                      T="string"
                                       Class="mt-6"
                                       @bind-Value="@_password"
                                       Label="Password"
@@ -40,12 +46,13 @@
                                       Validation="@(new Func<string, IEnumerable<string>>(PasswordStrength))"
                                       Required="true"
                                       RequiredError="Password is required!"/>
-                        <MudButton Class="mt-14"
-                            Variant="Variant.Filled"
-                            Color="Color.Primary"
-                            DropShadow="false"
-                            OnClick="@(() => _form.ValidateAsync())"
-                            Style="height: 45px">
+                        <MudButton id="login-button"
+                                   Class="mt-14"
+                                   Variant="Variant.Filled"
+                                   Color="Color.Primary"
+                                   DropShadow="false"
+                                   OnClick="@(() => _form.ValidateAsync())"
+                                   Style="height: 45px">
                             Login
                         </MudButton>
                     </MudForm>
