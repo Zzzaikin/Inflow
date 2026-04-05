@@ -3,29 +3,47 @@
 
 @code {
     [Fact]
-    public async Task LoginPage_Should_Render_With_ThemeSwitcher_And_LoginForm()
+    public async Task LoginPage_ShouldContains_ThemeSwitcher_And_LoginForm()
+    {
+        // Arrange
+        Services.AddMudServices();
+        JSInterop.SetupMudBlazorJsInterop();
+
+        // Act
+        var loginPage = Render<Login>();
+        var paper = loginPage.FindComponent<MudPaper>();
+        
+        // Assert
+        paper.Should().NotBeNull();
+        paper.HasComponent<MudSwitch<bool>>().Should().BeTrue();
+        paper.HasComponent<MudForm>().Should().BeTrue();
+
+        await Services.DisposeAsync();
+    }
+
+    [Fact]
+    public async Task LoginForm_ShouldContains_Username_And_Password_Fields()
     {
         // Arrange
         Services.AddMudServices();
         JSInterop.SetupMudBlazorJsInterop();
         
-        var loginPage = Render<Login>();
-
         // Act
-        var paper = loginPage.FindComponent<MudPaper>();
-        var themeSwitcherExists = paper.HasComponent<MudSwitch<bool>>();
-        var loginFormExists = paper.HasComponent<MudForm>();
+        var loginPage = Render<Login>();
+        var loginForm = loginPage.FindComponent<MudForm>();
+        var fields = loginForm.FindComponents<MudTextField<string>>();
         
-        // Assert
-        paper.Should().NotBeNull();
-        themeSwitcherExists.Should().BeTrue();
-        loginFormExists.Should().BeTrue();
+        // Arrange
+        loginForm.Should().NotBeNull();
+        fields.Should().NotBeNull();
+        fields.Should().Contain(field => field.Instance.FieldId == "username");
+        fields.Should().Contain(field => field.Instance.FieldId == "password");
 
         await Services.DisposeAsync();
     }
     
     [Fact]
-    public async Task IsDarkMode_IsApplied_When_Switcher_Is_Toggled()
+    public async Task IsDarkMode_IsApplied_When_Switcher_Is_ToggledToDark()
     {
         // Arrange
         Services.AddMudServices();
@@ -39,6 +57,50 @@
         
         // Assert
         loginPage.FindComponent<MudThemeProvider>().Instance.IsDarkMode.Should().BeTrue();
+        
+        await Services.DisposeAsync();
+    }
+    
+    [Fact]
+    public async Task IsLightMode_IsApplied_When_Switcher_Is_ToggledToLight()
+    {
+        // Arrange
+        Services.AddMudServices();
+        JSInterop.SetupMudBlazorJsInterop();
+        
+        var loginPage = Render<Login>();
+        var themeSwitcher = loginPage.Find("#theme-switcher");
+            
+        // Act
+        await themeSwitcher.ChangeAsync(true);
+        await themeSwitcher.ChangeAsync(false);
+        
+        // Assert
+        loginPage.FindComponent<MudThemeProvider>().Instance.IsDarkMode.Should().BeFalse();
+        
+        await Services.DisposeAsync();
+    }
+    
+    [Fact]
+    public async Task UserName_And_Password_Fields_Should_Be_Required()
+    {
+        // Arrange
+        Services.AddMudServices();
+        JSInterop.SetupMudBlazorJsInterop();
+        
+        // Act
+        var loginPage = Render<Login>();
+        var fields = loginPage.FindComponents<MudTextField<string>>();
+        var usernameField = 
+            fields.First(field => field.Instance.FieldId == "username").Instance;
+        var passwordField =
+            fields.First(field => field.Instance.FieldId == "password").Instance;
+        
+        // Assert
+        usernameField.Should().NotBeNull();
+        passwordField.Should().NotBeNull();
+        usernameField.Required.Should().BeTrue();
+        passwordField.Required.Should().BeTrue();
         
         await Services.DisposeAsync();
     }
