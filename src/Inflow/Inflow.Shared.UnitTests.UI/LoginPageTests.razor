@@ -1,3 +1,4 @@
+@using Inflow.UnitTests.UI.Common.Extensions
 @inherits BunitContext
 
 @code {
@@ -6,16 +7,7 @@
     {
         // Arrange
         Services.AddMudServices();
-        
-        JSInterop.SetupVoid("mudElementRef.addOnBlurEvent", _ => true);
-        JSInterop.SetupVoid("mudKeyInterceptor.connect", _ => true);
-        JSInterop.Setup<int>("mudpopoverHelper.countProviders");
-        JSInterop.SetupVoid("mudThemeProvider.watchDarkMode", _ => true);
-        JSInterop
-            .SetupVoid("mudKeyInterceptor.disconnect", _ => true)
-            .SetVoidResult();
-
-        JSInterop.SetupVoid("mudPopover.dispose").SetVoidResult();
+        JSInterop.SetupMudBlazorJsInterop();
         
         var loginPage = Render<Login>();
 
@@ -29,6 +21,25 @@
         themeSwitcherExists.Should().BeTrue();
         loginFormExists.Should().BeTrue();
 
+        await Services.DisposeAsync();
+    }
+    
+    [Fact]
+    public async Task IsDarkMode_IsApplied_When_Switcher_Is_Toggled()
+    {
+        // Arrange
+        Services.AddMudServices();
+        JSInterop.SetupMudBlazorJsInterop();
+        
+        var loginPage = Render<Login>();
+        var themeSwitcher = loginPage.Find("#theme-switcher");
+            
+        // Act
+        await themeSwitcher.ChangeAsync(true);
+        
+        // Assert
+        loginPage.FindComponent<MudThemeProvider>().Instance.IsDarkMode.Should().BeTrue();
+        
         await Services.DisposeAsync();
     }
 }

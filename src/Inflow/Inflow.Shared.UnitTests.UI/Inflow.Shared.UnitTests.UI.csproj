@@ -22,6 +22,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Inflow.Shared\Inflow.Shared.csproj" />
+      <ProjectReference Include="..\Inflow.UnitTests.UI.Common\Inflow.UnitTests.UI.Common.csproj" />
     </ItemGroup>
 
 </Project>
