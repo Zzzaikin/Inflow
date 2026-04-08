@@ -1,5 +1,7 @@
 using Inflow.Web.Components;
+using Microsoft.AspNetCore.Localization;
 using MudBlazor.Services;
+using System.Globalization;
 
 namespace Inflow.Web;
 
@@ -15,8 +17,24 @@ public class Program
             .AddInteractiveServerComponents()
             .AddInteractiveWebAssemblyComponents();
         services.AddMudServices();
+        services.AddLocalization(options => options.ResourcesPath = "Resources");
 
         var app = builder.Build();
+        
+        var supportedCultures = new[]
+        {
+            new CultureInfo("en"),
+            new CultureInfo("ru")
+        };
+        
+        var localizationOptions = new RequestLocalizationOptions
+        {
+            DefaultRequestCulture = new RequestCulture("en"),
+            SupportedCultures = supportedCultures,
+            SupportedUICultures = supportedCultures
+        };
+        
+        app.UseRequestLocalization(localizationOptions);
 
         // Configure the HTTP request pipeline.
         if (app.Environment.IsDevelopment())
